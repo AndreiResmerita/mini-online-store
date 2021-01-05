@@ -1,0 +1,12 @@
+#parse("layout.vm")
+#@mainLayout()
+
+<h1>$product.productName</h1>
+
+<div class="product">
+    <img src="$product.getImg()" alt="$product.getProductName()">
+</div>
+
+
+#end
+

@@ -18,11 +18,18 @@ repositories {
 }
 
 dependencies {
+    //Bcrypt
+    implementation "org.mindrot:jbcrypt:0.4"
+
+    //Spark Debug
+    compile group: 'com.sparkjava', name: 'spark-debug-tools', version: '0.5'
+
     compile 'org.xerial:sqlite-jdbc:3.32.3'
 
     //spark web framework
     compile 'com.sparkjava:spark-core:2.9.2'
     compile 'com.sparkjava:spark-template-velocity:2.7.1'
+
 
     //javalin web framework (alternative to spark)
     compile 'io.javalin:javalin:3.9.1'
