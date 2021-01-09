@@ -51,13 +51,17 @@ public class UserDAOImpl implements UserDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                user = new UserDTO(rs.getInt(1), rs.getString("email"), rs.getString("password"), UserType.valueOf(rs.getString("user_type")), rs.getString("name"), rs.getString("address"), rs.getInt("phone_number"));
-            }
-            return user;
+            return getUserDTO(user, preparedStatement);
         }
+    }
+
+    public UserDTO getUserDTO(UserDTO user, PreparedStatement preparedStatement) throws SQLException {
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            user = new UserDTO(rs.getInt(1), rs.getString("email"), rs.getString("password"), UserType.valueOf(rs.getString("user_type")), rs.getString("name"), rs.getString("address"), rs.getInt("phone_number"));
+        }
+        return user;
     }
 
 
@@ -68,12 +72,7 @@ public class UserDAOImpl implements UserDAO {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                user = new UserDTO(rs.getInt(1), rs.getString("email"), rs.getString("password"), UserType.valueOf(rs.getString("user_type")), rs.getString("name"), rs.getString("address"), rs.getInt("phone_number"));
-            }
-            return user;
+            return getUserDTO(user, preparedStatement);
         }
     }
 
@@ -96,7 +95,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id){
 
         String sql = "DELETE FROM users WHERE id = ?";
 

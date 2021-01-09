@@ -1,9 +1,9 @@
 package wantsome.project.Model;
 
 public class Cart {
-    private PaymentType paymentType;
+    private final PaymentType paymentType;
 
-    private Integer totalprice;
+    private final Integer totalprice;
 
 
     public Cart(PaymentType paymentType, Integer totalprice) {

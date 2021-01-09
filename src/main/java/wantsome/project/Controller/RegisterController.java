@@ -31,6 +31,7 @@ public class RegisterController {
         UserDTO userDTO = new UserDTO(user);
         userDAO.addCustomer(userDTO);
         model.put("authenticationSucceeded", true);
+        model.put("regAlert" ,true);
         request.session().attribute("currentUser", getQueryEmail(request));
         response.redirect("/main");
         return null;

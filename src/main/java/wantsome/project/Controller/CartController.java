@@ -24,6 +24,7 @@ import static wantsome.project.web.RequestUtil.RequestUtil.getParamsProdId;
 
 public class CartController {
 
+
     public static List<ProductDTO> productDTOList = new ArrayList<>();
 
     public static void addInCart(ProductDTO p) {
@@ -43,7 +44,8 @@ public class CartController {
         return productDTOList;
     }
 
-    public static Route addToCart = (Request request, Response respone) -> {
+    public static Route addToCart = (Request request, Response response) -> {
+        LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
         addInCart(productDAO.getById(Integer.parseInt(getParamsProdId(request))));
@@ -54,6 +56,7 @@ public class CartController {
     };
 
     public static Route getCartPage = (Request request, Response response) -> {
+        LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
         model.put("price", getTotalPrice());
         model.put("cs", productDTOList.size());

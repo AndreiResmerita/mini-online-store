@@ -1,5 +1,5 @@
 #parse("layout.vm")
-#@mainLayout() Hello!
+#@mainLayout()
 <form method="post">
 
     #if($authenticationFailed)

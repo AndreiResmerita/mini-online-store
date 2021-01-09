@@ -1,12 +1,11 @@
 #parse("layout.vm")
 #@mainLayout()
-    <form action="/cart" method="post">
+<form action="/cart" method="post">
 
 
 <table>
     <tr>
         <td>Products:</td>
-
     </tr>
     #foreach ( $p in $allProducts)
         <tr>
@@ -14,16 +13,17 @@
             <td>$p.description</td>
         </tr>
     #end
+#end
     <tr>
         <td>$price</td>
     </tr>
 </table>
-        <input type="radio"  name="type_of_payment" value="CASHONDELIVERY">
-        <label for="CASHONDELIVERY">Cash on delivery</label><br>
-        <input type="radio"  name="type_of_payment" value="CARD">
-        <label for="CARD">Card</label><br>
+    <input type="radio" name="type_of_payment" value="CASHONDELIVERY">
+    <label for="CASHONDELIVERY">Cash on delivery</label><br>
+    <input type="radio" name="type_of_payment" value="CARD">
+    <label for="CARD">Card</label><br>
 
-        <button class="ui-button" type="submit">Finish order</button>
-    </form>
+    <button class="ui-button" type="submit">Finish order</button>
+</form>
 
 #end

@@ -6,7 +6,6 @@ import spark.Route;
 import wantsome.project.DAO.ProductDAOImpl;
 import wantsome.project.web.Paths;
 import wantsome.project.web.SparkUtil;
-
 import java.util.HashMap;
 import java.util.Map;
 

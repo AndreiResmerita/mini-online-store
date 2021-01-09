@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CartDAO {
-   public void sendOrder(UserDTO userDTO, CartDTO cartDTO) throws SQLException;
+
+    public void sendOrder(UserDTO userDTO, CartDTO cartDTO) throws SQLException;
+
     public List<CartDTO> getAllCartProducts(CartDTO cartDTO, UserDTO userDTO) throws SQLException;
 
 

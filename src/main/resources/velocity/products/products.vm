@@ -3,16 +3,16 @@
 <h1>Products: </h1>
 
     #foreach($product in $products)
-        <div class="container">
-            <div class="flex">
-                <div class="product">
-                    <a class="products" href="/products/${product.getId()}">
-                    <img src="$product.getImg()" alt="$product.productName" />
-                        $product.productName
-                    </a>
-                </div>
+    <div class="container">
+        <div class="flex">
+            <div class="product">
+                <a class="products" href="/products/${product.getId()}">
+                    <img src="$product.getImg()" alt="$product.productName"/>
+                    $product.productName
+                </a>
             </div>
         </div>
+    </div>
     #end
 #end
 

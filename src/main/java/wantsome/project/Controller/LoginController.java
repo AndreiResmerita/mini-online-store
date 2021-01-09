@@ -26,22 +26,23 @@ public class LoginController {
     };
 
     public static Route handleLoginPost = (Request request, Response response) -> {
+
         Map<String, Object> model = new HashMap<>();
-
-
         if (authenticateAsAdmin(getQueryEmail(request), getQueryPassword(request))) {
             request.session().attribute("admin", getQueryEmail(request));
             response.redirect(Paths.Web.ADMINPANEL);
             return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
         }
-
-        if (!LoginController.authenticate(getQueryEmail(request), getQueryPassword(request))) {
+        if (!authenticate(getQueryEmail(request), getQueryPassword(request))
+                && !authenticateAsAdmin(getQueryEmail(request), getQueryPassword(request))) {
             model.put("authenticationFailed", true);
             return SparkUtil.render(request, model, Paths.Template.LOGIN);
         } else
             model.put("cs", CartController.productDTOList.size());
         model.put("authenticationSucceeded", true);
-
+        if (getQueryRedirectBack(request) != null) {
+            response.redirect(getQueryRedirectBack(request));
+        }
         request.session().attribute("currentUser", getQueryEmail(request));
         return SparkUtil.render(request, model, Paths.Template.LOGIN);
     };
@@ -61,7 +62,6 @@ public class LoginController {
             throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
 
         verifiedPassword = BCrypt.checkpw(plainTextPassword, hashPass);
-
         return (verifiedPassword);
     }
 
@@ -94,7 +94,7 @@ public class LoginController {
 
     public static void ensureUserIsLoggedIn(Request request, Response response) {
         if (request.session().attribute("currentUser") == null) {
-            request.session().attribute("loginRedirect", request.pathInfo());
+            request.session().attribute("redirectBack", request.pathInfo());
             response.redirect(Paths.Web.LOGIN);
         }
     }

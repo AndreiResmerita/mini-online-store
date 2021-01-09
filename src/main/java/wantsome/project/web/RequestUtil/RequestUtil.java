@@ -11,6 +11,9 @@ public class RequestUtil {
     public static String getParamsProdId(Request request) {
         return request.params(":id");
     }
+    public static String getQueryRedirectBack(Request request) {
+        return request.queryParams("redirectBack");
+    }
 
     public static String getQueryPassword(Request request) {
         return request.queryParams("password");

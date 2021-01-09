@@ -36,6 +36,7 @@ public class AdminController {
         response.redirect(Paths.Web.ADMINPANEL);
         return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
     };
+
     public static Route getEditProductAdmin = (Request request, Response response) -> {
         LoginController.ensureUserIsAdmin(request, response);
         Map<String, Object> model = new HashMap<>();
@@ -44,7 +45,6 @@ public class AdminController {
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         return SparkUtil.render(request, model, Paths.Template.EDITADMNPNL);
     };
-
 
     public static Route getEditProductAdminPost = (Request request, Response response) -> {
         LoginController.ensureUserIsAdmin(request, response);

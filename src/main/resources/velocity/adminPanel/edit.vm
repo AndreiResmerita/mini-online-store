@@ -2,8 +2,11 @@
 #@mainLayout()
 adminPanel
 <form action="/adminpanel" method='post' enctype='multipart/form-data'>
-    <input type='file' name='img' accept='.jpg'>
-    <label for="product_type" class="my-1 mr-2" id="inlineFormCustomSelectPref">Type of product</label>
+<b>Please choose a photo:</b>
+</br>
+<input type='file' name='img' accept='.jpg,.png'>
+</br>
+<label for="product_type" class="my-1 mr-2" id="inlineFormCustomSelectPref">Select below the type of product:</label>
     <select name="product_type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
         <option value="PC">PC</option>
         <option value="LAPTOP">Laptop</option>

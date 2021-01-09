@@ -2,10 +2,7 @@ package wantsome.project.DAO;
 
 import wantsome.project.Controller.CartController;
 import wantsome.project.DTO.CartDTO;
-import wantsome.project.DTO.ProductDTO;
 import wantsome.project.DTO.UserDTO;
-import wantsome.project.Model.PaymentType;
-
 import java.sql.*;
 import java.util.List;
 
@@ -38,8 +35,6 @@ public class CartDAOImpl implements CartDAO {
             }
 
         }
-
-
     }
 
     @Override

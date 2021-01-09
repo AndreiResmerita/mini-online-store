@@ -1,15 +1,8 @@
 package wantsome.project.DAO;
 
-import com.google.common.collect.ImmutableList;
-import wantsome.project.Controller.ProductsController;
 import wantsome.project.DTO.ProductDTO;
-import wantsome.project.DTO.UserDTO;
-import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
-import wantsome.project.Model.UserType;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,14 +13,9 @@ import static wantsome.project.DBManager.getConnection;
 
 public class ProductDAOImpl implements ProductDAO {
 
-
-
-
-
     public ProductDTO getRandomProduct() throws SQLException {
         return getAllProducts().get(new Random().nextInt(getAllProducts().size()));
     }
-
 
     @Override
     public void addProduct(ProductDTO productDTO) throws SQLException {
@@ -42,7 +30,6 @@ public class ProductDAOImpl implements ProductDAO {
             statement.setString(4, productDTO.getDescription());
             statement.setInt(5, productDTO.getPrice());
             statement.setInt(6, productDTO.getStock());
-
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
@@ -90,7 +77,6 @@ public class ProductDAOImpl implements ProductDAO {
     public ProductDTO getById(Integer id) throws SQLException {
 
         ProductDTO productDTO = null;
-
         String query = "select * from products where id = ?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {

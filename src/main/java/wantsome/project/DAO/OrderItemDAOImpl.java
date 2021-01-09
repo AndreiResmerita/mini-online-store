@@ -6,7 +6,7 @@ import wantsome.project.DTO.OrderItemDTO;
 import java.sql.SQLException;
 import java.util.List;
 
-public class OrderItemDAOImpl implements OrderItemDAO{
+public class OrderItemDAOImpl implements OrderItemDAO {
     @Override
     public void insert() {
 
