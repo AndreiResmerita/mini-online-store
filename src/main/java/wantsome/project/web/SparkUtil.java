@@ -22,7 +22,7 @@ public class SparkUtil {
         model.put("cs", CartController.productDTOList.size());
         model.put("admin",getSessionAdmin(request));
         model.put("currentUser", getSessionCurrentUser(request));
-        model.put("WebPath", Paths.Web.class); // Access application URLs from templates
+        model.put("WebPath", Paths.Web.class);
         return strictVelocityEngine().render(new ModelAndView(model, templatePath));
     }
 

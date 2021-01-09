@@ -21,7 +21,6 @@ public class LoginController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("cs", CartController.productDTOList.size());
-
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         return SparkUtil.render(request, model, Paths.Template.LOGIN);
     };
@@ -40,7 +39,6 @@ public class LoginController {
             model.put("authenticationFailed", true);
             return SparkUtil.render(request, model, Paths.Template.LOGIN);
         } else
-
             model.put("cs", CartController.productDTOList.size());
         model.put("authenticationSucceeded", true);
 

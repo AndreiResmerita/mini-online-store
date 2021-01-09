@@ -12,7 +12,6 @@ public class RequestUtil {
         return request.params(":id");
     }
 
-
     public static String getQueryPassword(Request request) {
         return request.queryParams("password");
     }

@@ -4,7 +4,7 @@ adminPanel
 
 
 <form action="/adminpanel" method='post' enctype='multipart/form-data'>
-    <input type='file' name='img' accept='.jpg'>
+    <input type='file' name='img' accept='.jpg,.png'>
     <label for="product_type" class="my-1 mr-2" id="inlineFormCustomSelectPref">Type of product</label>
     <select name="product_type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
         <option value="PC">PC</option>

@@ -1,5 +1,7 @@
 main {
     margin: 0 auto;
+    background:whitesmoke ;
+
     padding: 15px;
     width: 85%;
     border-style: solid;
@@ -7,7 +9,36 @@ main {
     border-left-width: 3px;
     border-right-width: 3px;
     border-color: red;
+}
+#content{stop-opacity: 0!important;}
+a{color: #212529!important;
+text-decoration: none!important;
+}
 
+body {
+    background: #4b6cb7!important;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7)!important;  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #182848, #4b6cb7)!important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+#central{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #ffffff00!important;
+}
+
+#after-central{
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+}
+.navbar-light .navbar-nav .nav-link{
+    color: rgb(74 74 74)!important;
 }
 #navigation{
     display: inline;
@@ -18,9 +49,9 @@ main {
 
     list-style: none;
     background-color: #f2f2f2;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
-    margin-left: 0px;  // looks like bootstrap is putting a left margin on your #nav you may want it off.
+    border-bottom: 1px solid #00b8ff;
+    border-top: 1px solid #00b8ff;
+    margin-bottom: 10px!important;
 
 }
 .navbar-nav li {
@@ -47,12 +78,43 @@ main {
 .product img{
     width: 200px;
 }
-a.products:hover{
-    background: #e2e9f5;
-}
+
 #logout{
     color: #212529;
 }
 .productsA img{
     width: 100px;
+}
+
+.nav-link {!important;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+}
+
+.nav-link:hover, .nav-link:focus, .nav-link:active {!important;
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.dropdown-item {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow;
+    transition-property: box-shadow;
+}
+.dropdown-item:hover, .dropdown-item:focus, .dropdown-item:active {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }

@@ -36,9 +36,7 @@ public class CartController {
             sum += p.getPrice();
 
         }
-
         return sum;
-
     }
 
     public static List<ProductDTO> getProductsAll() {

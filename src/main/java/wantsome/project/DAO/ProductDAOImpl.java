@@ -21,11 +21,11 @@ import static wantsome.project.DBManager.getConnection;
 public class ProductDAOImpl implements ProductDAO {
 
 
-    private final List<ProductDTO> products = ImmutableList.of(new ProductDTO(3, Path.of("upload/1646675099306288925"), ProductType.SMARTPHONE, "Samsung S10", "Another WOW Telephone", 1000, 100));
 
 
-    public ProductDTO getRandomProduct() {
-        return products.get(new Random().nextInt(products.size()));
+
+    public ProductDTO getRandomProduct() throws SQLException {
+        return getAllProducts().get(new Random().nextInt(getAllProducts().size()));
     }
 
 
