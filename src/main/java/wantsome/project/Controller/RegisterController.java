@@ -19,7 +19,6 @@ public class RegisterController {
     public static Route getRegisterPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
-
         return SparkUtil.render(request, model, Paths.Template.REGISTER);
     };
 

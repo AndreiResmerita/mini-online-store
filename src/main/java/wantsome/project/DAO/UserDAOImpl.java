@@ -78,7 +78,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
-
     @Override
     public void update(UserDTO userDTO) throws SQLException {
 
@@ -110,7 +109,5 @@ public class UserDAOImpl implements UserDAO {
             System.out.println(e.getMessage());
         }
     }
-
-
 }
 

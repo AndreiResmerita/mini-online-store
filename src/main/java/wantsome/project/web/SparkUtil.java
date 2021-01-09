@@ -4,6 +4,7 @@ import org.apache.velocity.app.VelocityEngine;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.velocity.*;
+import wantsome.project.Controller.CartController;
 
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class SparkUtil {
      */
 
     public static String render(Request request, Map<String, Object> model, String templatePath) {
+        model.put("cs", CartController.productDTOList.size());
         model.put("admin",getSessionAdmin(request));
         model.put("currentUser", getSessionCurrentUser(request));
         model.put("WebPath", Paths.Web.class); // Access application URLs from templates
@@ -27,7 +29,7 @@ public class SparkUtil {
     private static VelocityTemplateEngine strictVelocityEngine() {
         VelocityEngine configuredEngine = new VelocityEngine();
         configuredEngine.setProperty("runtime.references.strict", true);
-        configuredEngine.setProperty("resource.loader", "class");
+        configuredEngine.setProperty("resource.loaders", "class");
         configuredEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         return new VelocityTemplateEngine(configuredEngine);
     }

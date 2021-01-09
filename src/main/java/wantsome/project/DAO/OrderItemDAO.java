@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface OrderItemDAO {
+    public void insert();
     public OrderItemDTO getMostBoughtProduct(OrderItemDTO orderItemDTO) throws SQLException;
     public List<CartDTO> getAllCarts(CartDTO cartDTO);
 }

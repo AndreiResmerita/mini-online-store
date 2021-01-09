@@ -1,10 +1,19 @@
 #parse("layout.vm")
 #@mainLayout()
 
-<h1>$product.productName</h1>
+<h1>$product.getProductName()</h1>
 
 <div class="product">
-    <img src="$product.getImg()" alt="$product.getProductName()">
+    <img src="/$product.img" alt="$product.productName">
+</div>
+
+<div class="container">
+<div class="row">
+    <div class="col-sm">
+        <form action="/products/$product.getId()" method="post">
+        <button type="submit"  class="btn btn-outline-primary">Add to cart</button>
+        </form>
+    </div>
 </div>
 
 

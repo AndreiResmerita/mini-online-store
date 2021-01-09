@@ -4,35 +4,35 @@ adminPanel
 
 
 <form action="/adminpanel" method='post' enctype='multipart/form-data'>
-       <input type='file' name='img' accept='.jpg'>
-       <label for="product_type" class="my-1 mr-2" id="inlineFormCustomSelectPref">Type of product</label>
-       <select name="product_type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-           <option value="PC">PC</option>
-           <option value="LAPTOP">Laptop</option>
-           <option value="SMARTPHONE">Smartphone</option>
-           <option value="TV">TV</option>
-       </select>
-       <div class="row">
-           <div class="col">
-               <input type="text" class="form-control" name="product_name" placeholder="Product name">
-           </div>
-           <div class="col">
-               <input type="text" class="form-control" name="description" placeholder="Description">
-           </div>
-           <div class="col">
-               <input type="number" class="form-control" name="price" placeholder="Price">
-           </div>
-           <div class="col">
-               <input type="number" class="form-control" name="stock" placeholder="Stock">
-           </div>
-       </div>
-       <button type="submit" value="/adminpanel" class="btn btn-primary my-1">Add</button>
-   </form>
+    <input type='file' name='img' accept='.jpg'>
+    <label for="product_type" class="my-1 mr-2" id="inlineFormCustomSelectPref">Type of product</label>
+    <select name="product_type" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+        <option value="PC">PC</option>
+        <option value="LAPTOP">Laptop</option>
+        <option value="SMARTPHONE">Smartphone</option>
+        <option value="TV">TV</option>
+    </select>
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" name="product_name" placeholder="Product name">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" name="description" placeholder="Description">
+        </div>
+        <div class="col">
+            <input type="number" class="form-control" name="price" placeholder="Price">
+        </div>
+        <div class="col">
+            <input type="number" class="form-control" name="stock" placeholder="Stock">
+        </div>
+    </div>
+    <button type="submit" value="/adminpanel" class="btn btn-primary my-1">Add</button>
+</form>
 
 
 <table class="table">
 
-        <thead class="thead-dark">
+    <thead class="thead-dark">
 
     <tr>
         <th scope="col">Id</th>
@@ -44,8 +44,8 @@ adminPanel
         <th scope="col"></th>
     </tr>
     </thead>
-    <tbody>
-        #foreach($product in $products)
+<tbody>
+    #foreach($product in $products)
     <tr>
         <td>$product.id</td>
         <td>$product.productType</td>
@@ -54,9 +54,9 @@ adminPanel
         <td>$product.price</td>
         <td>$product.stock</td>
         <td>
-            <button onclick="location.href='/adminpanel/$product.id/$product.id'"    class="btn btn-success">Edit</button>
+            <button onclick="location.href='/adminpanel/$product.id/$product.id'" class="btn btn-success">Edit</button>
             <button onclick="location.href='/adminpanel/$product.id'" class="btn btn-danger">Delete</button>
-           </td>
+        </td>
     </tr>
     </tbody>
     #end

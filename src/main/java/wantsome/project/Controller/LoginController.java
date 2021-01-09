@@ -5,6 +5,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import wantsome.project.DAO.UserDAOImpl;
+import wantsome.project.DTO.CartDTO;
 import wantsome.project.DTO.UserDTO;
 import wantsome.project.web.Paths;
 import wantsome.project.web.SparkUtil;
@@ -19,12 +20,15 @@ public class LoginController {
     public static Route getLoginPage = (Request request, Response response) -> {
 
         Map<String, Object> model = new HashMap<>();
+        model.put("cs", CartController.productDTOList.size());
+
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         return SparkUtil.render(request, model, Paths.Template.LOGIN);
     };
 
     public static Route handleLoginPost = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
+
 
         if (authenticateAsAdmin(getQueryEmail(request), getQueryPassword(request))) {
             request.session().attribute("admin", getQueryEmail(request));
@@ -35,7 +39,11 @@ public class LoginController {
         if (!LoginController.authenticate(getQueryEmail(request), getQueryPassword(request))) {
             model.put("authenticationFailed", true);
             return SparkUtil.render(request, model, Paths.Template.LOGIN);
-        } else model.put("authenticationSucceeded", true);
+        } else
+
+            model.put("cs", CartController.productDTOList.size());
+        model.put("authenticationSucceeded", true);
+
         request.session().attribute("currentUser", getQueryEmail(request));
         return SparkUtil.render(request, model, Paths.Template.LOGIN);
     };

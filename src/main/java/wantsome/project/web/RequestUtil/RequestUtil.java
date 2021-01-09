@@ -12,6 +12,7 @@ public class RequestUtil {
         return request.params(":id");
     }
 
+
     public static String getQueryPassword(Request request) {
         return request.queryParams("password");
     }
@@ -29,11 +30,5 @@ public class RequestUtil {
     public static String getSessionAdmin(Request request) {
         return request.session().attribute("admin");
     }
-
-    public static boolean clientAcceptsHtml(Request request) {
-        String accept = request.headers("Accept");
-        return accept != null && accept.contains("text/html");
-    }
-
 
 }

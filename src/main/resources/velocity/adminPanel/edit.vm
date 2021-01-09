@@ -31,7 +31,6 @@
 hello
 
 
-
 <table class="table">
 
     <thead class="thead-dark">
@@ -52,12 +51,20 @@ hello
         <td>$product.id</td>
         <td>$product.productType</td>
         <form action="/adminpanel/$product.id/$product.id" method="post">
-            <td><input class="form-control form-control-sm" type="text" name="product_name" placeholder="Change product name"></td>
-            <td><input class="form-control form-control-sm" type="text" name="description" placeholder="Change description"></td>
-            <td><input class="form-control form-control-sm" type="number" name="price" placeholder="Change price"></td>
-            <td><input class="form-control form-control-sm" type="number" name="stock" placeholder="Change stock"></td>
-            <td><button value="/adminpanel/$product.id/$product.id"  type="submit"  class="btn btn-success">Save</button></form>
-        <button  onclick="location.href='/adminpanel'" class="btn btn-danger">Cancel</button>
+            <td><input class="form-control form-control-sm" type="text" name="product_name"
+                       placeholder="Change product name" required></td>
+            <td><input class="form-control form-control-sm" type="text" name="description"
+                       placeholder="Change description" required></td>
+            <td><input class="form-control form-control-sm" type="number" name="price" placeholder="Change price"
+                       required></td>
+            <td><input class="form-control form-control-sm" type="number" name="stock" placeholder="Change stock"
+                       required></td>
+            <td>
+                <button value="/adminpanel/$product.id/$product.id" type="submit" class="btn btn-success" required>
+                    Save
+                </button>
+        </form>
+        <button onclick="location.href='/adminpanel'" class="btn btn-danger">Cancel</button>
         </td>
     </tr>
     </tbody>

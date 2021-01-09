@@ -5,6 +5,8 @@
 #* @vtlvariable name="edit" type="java.lang.String" *#
 #* @vtlvariable name="product" type="wantsome.project.DTO.ProductDTO" *#
 #* @vtlvariable name="loggedOut" type="java.lang.String" *#
+#* @vtlvariable name="cartSize" type="java.lang.String" *#
+#* @vtlvariable name="cart" type="wantsome.project.DTO.CartDTO" *#
 #* @vtlvariable name="authenticationFailed" type="java.lang.String" *#
 #* @vtlvariable name="authenticationSucceeded" type="java.lang.String" *#
 

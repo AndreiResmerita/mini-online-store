@@ -1,7 +1,6 @@
 package wantsome.project.Controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 
 import static wantsome.project.web.RequestUtil.RequestUtil.*;
@@ -11,12 +10,12 @@ import spark.Response;
 import spark.Route;
 import wantsome.project.DAO.ProductDAO;
 import wantsome.project.DAO.ProductDAOImpl;
+
 import wantsome.project.DTO.ProductDTO;
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
 import wantsome.project.web.Paths;
 import wantsome.project.web.SparkUtil;
-
 import javax.servlet.MultipartConfigElement;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -29,10 +28,9 @@ public class ProductsController {
     public static Route getProductsPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
+        model.put("cs",CartController.productDTOList.size());
         model.put("products", productDAO.getAllProducts());
-        String result = SparkUtil.render(request, model, Paths.Template.PRODUCTS);
-        System.out.println("template getProductsPage: " + result);
-        return result;
+        return SparkUtil.render(request, model, Paths.Template.PRODUCTS);
     };
 
     public static Route handleProductPost = (Request request, Response response) -> {
@@ -53,12 +51,10 @@ public class ProductsController {
     public static Route getEachProductsPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
+        model.put("cs",CartController.productDTOList.size());
         ProductDTO productDTO = productDAO.getById(Integer.parseInt(getParamsProdId(request)));
         model.put("product", productDTO);
-        String result = SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
-        System.out.println("template getEachProductsPage: " + result);
-        return result;
+        return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
     };
-
 
 }

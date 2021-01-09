@@ -1,11 +1,10 @@
-#parse("layout.vm")
+#parse("/layout.vm")
 #@mainLayout()
 #if($product)
 <h1>Product of the day: </h1>
 <div class="product">
         <a href="/products/$product.id">$product.productName
-
-        <img src="$product.getImg()" alt="$product.getProductName()">
+                <img src="/$product.getImg()" alt="$product.getProductName()">
         </a>
 </div>
 

@@ -1,7 +1,4 @@
-
-
 main {
-
     margin: 0 auto;
     padding: 15px;
     width: 85%;
@@ -12,10 +9,11 @@ main {
     border-color: red;
 
 }
-
+#navigation{
+    display: inline;
+}
 .navbar-nav{
     width: 100%;
-    display: inline-block;
     text-align: center;
 
     list-style: none;
@@ -37,7 +35,7 @@ main {
 }
 
 .flex {
-    display: flex;
+
     justify-content: center;
     text-align: center;
 }

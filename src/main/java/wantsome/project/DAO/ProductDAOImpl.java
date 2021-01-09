@@ -46,13 +46,13 @@ public class ProductDAOImpl implements ProductDAO {
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                throw new SQLException("Creating product failed, no rows affected.");
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     productDTO.setId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
+                    throw new SQLException("Creating product failed, no ID obtained.");
                 }
             }
         }
@@ -78,10 +78,7 @@ public class ProductDAOImpl implements ProductDAO {
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // set the corresponding param
             pstmt.setInt(1, id);
-            // execute the delete statement
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -101,7 +98,7 @@ public class ProductDAOImpl implements ProductDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                productDTO = new ProductDTO(rs.getInt(1), Path.of("upload/" + rs.getString("img")).getFileName().toAbsolutePath(), ProductType.valueOf(rs.getString("product_type")), rs.getString("product_name"), rs.getString("description"), rs.getInt("price"), rs.getInt("stock"));
+                productDTO = new ProductDTO(rs.getInt(1), Path.of(rs.getString("img")).getFileName(), ProductType.valueOf(rs.getString("product_type")), rs.getString("product_name"), rs.getString("description"), rs.getInt("price"), rs.getInt("stock"));
             }
             return productDTO;
         }

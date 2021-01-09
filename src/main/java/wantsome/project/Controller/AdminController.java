@@ -48,10 +48,7 @@ public class AdminController {
 
     public static Route getEditProductAdminPost = (Request request, Response response) -> {
         LoginController.ensureUserIsAdmin(request, response);
-        Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
-        model.put("products", productDAO.getAllProducts());
-        model.put("loggedOut", removeSessionAttrLoggedOut(request));
         ProductDTO product = productDAO.getById(Integer.parseInt(getParamsProdId(request)));
         product = new ProductDTO(product.getId(), product.getImg(), product.getProductType(), request.queryParams("product_name"), request.queryParams("description"), Integer.parseInt(request.queryParams("price")), Integer.parseInt(request.queryParams("stock")));
         productDAO.update(product, product.getId());
