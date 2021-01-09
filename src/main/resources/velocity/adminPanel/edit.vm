@@ -1,7 +1,6 @@
 #parse("layout.vm")
 #@mainLayout()
-
-
+adminPanel
 <form action="/adminpanel" method='post' enctype='multipart/form-data'>
     <input type='file' name='img' accept='.jpg'>
     <label for="product_type" class="my-1 mr-2" id="inlineFormCustomSelectPref">Type of product</label>
@@ -27,14 +26,8 @@
     </div>
     <button type="submit" value="/adminpanel" class="btn btn-primary my-1">Add</button>
 </form>
-
-hello
-
-
 <table class="table">
-
     <thead class="thead-dark">
-
     <tr>
         <th scope="col">Id</th>
         <th scope="col">Product Type</th>
@@ -69,6 +62,5 @@ hello
     </tr>
     </tbody>
     #end
-
 </table>
 #end
