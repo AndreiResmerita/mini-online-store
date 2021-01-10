@@ -7,9 +7,9 @@ public class User {
     private UserType userType;
     private String name;
     private String address;
-    private Integer phoneNumber;
+    private String phoneNumber;
 
-    public User(String email, String password, UserType userType, String name, String address, Integer phoneNumber) {
+    public User(String email, String password, UserType userType, String name, String address, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.userType = userType;
@@ -63,11 +63,11 @@ public class User {
         this.address = address;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

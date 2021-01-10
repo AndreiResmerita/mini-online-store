@@ -12,6 +12,8 @@ import static wantsome.project.Controller.MainController.getMainPage;
 import static wantsome.project.Controller.ProductsController.*;
 import static wantsome.project.Controller.RegisterController.getRegisterPage;
 import static wantsome.project.Controller.RegisterController.handleRegisterPost;
+import static wantsome.project.Controller.UserController.changeAccSet;
+import static wantsome.project.Controller.UserController.getAccSet;
 
 public class Main {
 
@@ -43,6 +45,7 @@ public class Main {
         get(Paths.Web.PRODUCTPAGE, getEachProductsPage);
         get(Paths.Web.ABOUTPAGE, getAboutPage);
         get(Paths.Web.CARTPAGE, getCartPage);
+        get(Paths.Web.ACCSETTINGS,getAccSet);
 
         post(Paths.Web.CARTPAGE,finishOrder);
         post(Paths.Web.REGISTER, handleRegisterPost);
@@ -51,7 +54,7 @@ public class Main {
         post(Paths.Web.ADMINPANEL, handleProductPost);
         post(Paths.Web.EDTPRODADMIN2, getEditProductAdminPost);
         post(Paths.Web.PRODUCTPAGE, addToCart);
-
+        post(Paths.Web.ACCSETTINGS,changeAccSet);
 
         awaitInitialization();
         System.out.println("\nServer started: http://localhost:4567/main");

@@ -11,7 +11,7 @@ public class UserDTO {
     private final UserType userType;
     private String name;
     private String address;
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     public UserDTO(User user) {
         this.email = user.getEmail();
@@ -21,8 +21,17 @@ public class UserDTO {
         this.address = user.getAddress();
         this.phoneNumber = user.getPhoneNumber();
     }
+    public UserDTO(User user,Integer id) {
+        this.id = id;
+        this.email = user.getEmail();
+        this.password = hashPassword(user.getPassword());
+        this.userType = user.getUserType();
+        this.name = user.getName();
+        this.address = user.getAddress();
+        this.phoneNumber = user.getPhoneNumber();
+    }
 
-    public UserDTO(Integer id, String email, String password, UserType userType, String name, String address, Integer phoneNumber) {
+    public UserDTO(Integer id, String email, String password, UserType userType, String name, String address, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -71,7 +80,7 @@ public class UserDTO {
     }
 
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 

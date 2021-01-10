@@ -118,3 +118,15 @@ body {
 .dropdown-item:hover, .dropdown-item:focus, .dropdown-item:active {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
+
+#usracc{
+    margin-top: 10px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#btnaccset{
+    margin-left: 7px;
+}

@@ -10,7 +10,9 @@ public interface UserDAO {
 
     public UserDTO getUser(String email, String password) throws SQLException;
 
-    public void update(UserDTO userDTO) throws SQLException;
+    public void update(UserDTO userDTO,Integer id) throws SQLException;
 
     public void delete(Integer id) throws SQLException;
+
+    public UserDTO getById(Integer id) throws SQLException;
 }

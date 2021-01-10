@@ -27,7 +27,7 @@ public class RegisterController {
         Map<String, Object> model = new HashMap<>();
         User user = new User(request.queryParams("email"), request.queryParams("password"), UserType.CUSTOMER,
                 request.queryParams("name"), request.queryParams("address"),
-                Integer.parseInt(request.queryParams("phone")));
+                request.queryParams("phone"));
         UserDTO userDTO = new UserDTO(user);
         userDAO.addCustomer(userDTO);
         model.put("authenticationSucceeded", true);

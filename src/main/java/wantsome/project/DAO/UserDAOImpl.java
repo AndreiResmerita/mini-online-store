@@ -1,10 +1,13 @@
 package wantsome.project.DAO;
 
 import org.mindrot.jbcrypt.BCrypt;
+import wantsome.project.DTO.ProductDTO;
 import wantsome.project.DTO.UserDTO;
+import wantsome.project.Model.ProductType;
 import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 
+import java.nio.file.Path;
 import java.sql.*;
 
 
@@ -26,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(3, String.valueOf(userDTO.getUserType()));
             statement.setString(4, userDTO.getName());
             statement.setString(5, userDTO.getAddress());
-            statement.setInt(6, userDTO.getPhoneNumber());
+            statement.setString(6, userDTO.getPhoneNumber());
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
@@ -59,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rs = preparedStatement.executeQuery();
 
         while (rs.next()) {
-            user = new UserDTO(rs.getInt(1), rs.getString("email"), rs.getString("password"), UserType.valueOf(rs.getString("user_type")), rs.getString("name"), rs.getString("address"), rs.getInt("phone_number"));
+            user = new UserDTO(rs.getInt(1), rs.getString("email"), rs.getString("password"), UserType.valueOf(rs.getString("user_type")), rs.getString("name"), rs.getString("address"), rs.getString("phone_number"));
         }
         return user;
     }
@@ -78,7 +81,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void update(UserDTO userDTO) throws SQLException {
+    public void update(UserDTO userDTO, Integer id) throws SQLException {
 
         String query = "update users set email = ?, password = ?, user_type = ?, name = ?, address = ?, phone_number = ? where id = ?";
         try (Connection connection = getConnection();
@@ -88,14 +91,14 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(3, userDTO.getUserType().name());
             preparedStatement.setString(4, userDTO.getName());
             preparedStatement.setString(5, userDTO.getAddress());
-            preparedStatement.setInt(6, userDTO.getPhoneNumber());
-            preparedStatement.setInt(7, userDTO.getId());
+            preparedStatement.setString(6, userDTO.getPhoneNumber());
+            preparedStatement.setInt(7, id);
             preparedStatement.executeUpdate();
         }
     }
 
     @Override
-    public void delete(Integer id){
+    public void delete(Integer id) {
 
         String sql = "DELETE FROM users WHERE id = ?";
 
@@ -107,6 +110,23 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public UserDTO getById(Integer id) throws SQLException {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        UserDTO userDTO = null;
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                userDTO = new UserDTO(rs.getInt(1), rs.getString("email"), rs.getString("password"), UserType.valueOf(rs.getString("user_type")), rs.getString("name"), rs.getString("address"), rs.getString("phone_number"));
+            }
+            return userDTO;
+        }
+
     }
 }
 

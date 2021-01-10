@@ -67,10 +67,10 @@
                                             $cs
                                         </span>
                                     </a>
-
                                 </li>
-
-
+                                <li>
+                                    <a class="dropdown-item" href="/accset">Account settings</a>
+                                </li>
                                 <li>
                                     <form action="/logout" method="post">
                                         <button type="submit" id="logout" class="btn btn-link">Log out</button>
