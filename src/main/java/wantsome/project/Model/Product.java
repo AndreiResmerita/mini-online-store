@@ -1,6 +1,7 @@
 package wantsome.project.Model;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class Product {
     private Path img;
@@ -10,6 +11,13 @@ public class Product {
     private Integer price;
     private Integer stock;
 
+    public Product(ProductType productType, String productName, String description, Integer price, Integer stock) {
+        this.productType = productType;
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+    }
 
     public Product(Path img, ProductType productType, String productName, String description, Integer price, Integer stock) {
         this.img = img.getFileName();
@@ -18,6 +26,10 @@ public class Product {
         this.description = description;
         this.price = price;
         this.stock = stock;
+
+    }
+
+    public Product() {
 
     }
 
@@ -79,6 +91,19 @@ public class Product {
                 ", stock=" + stock +
                 ", Image='" + img + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return getProductType() == product.getProductType() && Objects.equals(getProductName(), product.getProductName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getPrice(), product.getPrice()) && Objects.equals(getStock(), product.getStock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductType(), getProductName(), getDescription(), getPrice(), getStock());
     }
 }
 

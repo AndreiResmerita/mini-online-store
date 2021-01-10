@@ -12,32 +12,36 @@ import wantsome.project.DTO.OrderItemDTO;
 import wantsome.project.DTO.ProductDTO;
 import wantsome.project.DTO.UserDTO;
 import wantsome.project.Model.Cart;
-import wantsome.project.Model.OrderItem;
 import wantsome.project.Model.PaymentType;
+import wantsome.project.Model.Product;
 import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
 import wantsome.project.web.SparkUtil;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static wantsome.project.web.RequestUtil.RequestUtil.getParamsProdId;
 
 public class CartController {
 
 
-    public static Integer frequency(List<ProductDTO> productDTOS) {
+    public static List<Product> products = new ArrayList<>();
+
+    public static Integer frequency(List<Product> products) {
         int result = 0;
 
-        Set<ProductDTO> set = new HashSet<ProductDTO>(productDTOS);
-        for (ProductDTO p : set) {
-            result = Collections.frequency(productDTOS, p);
+        Set<Product> set = new HashSet<>(products);
+        for (Product p : set) {
+            result = Collections.frequency(products, p);
         }
-return result;
+        return result;
     }
 
     public static List<ProductDTO> productDTOList = new ArrayList<>();
 
     public static void addInCart(ProductDTO p) {
+        products.add(p.toProduct());
         productDTOList.add(p);
     }
 
@@ -53,6 +57,7 @@ return result;
     public static List<ProductDTO> getProductsAll() {
         return productDTOList;
     }
+
 
     public static Route addToCart = (Request request, Response response) -> {
         LoginController.ensureUserIsLoggedIn(request, response);
@@ -76,22 +81,24 @@ return result;
 
     public static Route finishOrder = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
+        OrderItemDTO orderItemDTO = new OrderItemDTO();
+        OrderItemDAOImpl orderItemDAO = new OrderItemDAOImpl();
+        ProductDAOImpl productDAO = new ProductDAOImpl();
+        UserDAOImpl userDAO = new UserDAOImpl();
+        CartDAOImpl cartDAO = new CartDAOImpl();
         model.put("allProducts", getProductsAll());
         model.put("price", getTotalPrice());
         model.put("cs", productDTOList.size());
-        OrderItemDAOImpl orderItemDAO = new OrderItemDAOImpl();
-        OrderItemDTO orderItemDTO = new OrderItemDTO();
 
-        UserDAOImpl userDAO = new UserDAOImpl();
-        CartDAOImpl cartDAO = new CartDAOImpl();
         UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
         Cart cart = new Cart(PaymentType.valueOf(request.queryParams("type_of_payment")), getTotalPrice());
         CartDTO cartDTO = new CartDTO(cart);
         cartDAO.sendOrder(userDTO, cartDTO);
+        int freq = frequency(products);
 
-        for (ProductDTO p : productDTOList) {
-            int freq =  frequency(productDTOList);
-            orderItemDAO.insert(cartDTO, p,freq,orderItemDTO);
+        for (ProductDTO p : productDTOList.stream().distinct().collect(Collectors.toList())) {
+
+            orderItemDAO.insert(cartDTO, p, freq, orderItemDTO);
         }
         productDTOList.clear();
         response.redirect(Paths.Web.CARTPAGE);

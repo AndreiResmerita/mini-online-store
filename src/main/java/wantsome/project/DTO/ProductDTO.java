@@ -3,16 +3,17 @@ package wantsome.project.DTO;
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
 import java.nio.file.Path;
+import java.util.Objects;
 
 
 public class ProductDTO {
-    private final Path img;
+    private  Path img;
     private Integer id;
-    private final ProductType productType;
-    private final String productName;
-    private final String description;
-    private final Integer price;
-    private final Integer stock;
+    private  ProductType productType;
+    private  String productName;
+    private  String description;
+    private  Integer price;
+    private  Integer stock;
 
 
     public ProductDTO(Product product) {
@@ -32,6 +33,10 @@ public class ProductDTO {
         this.description = description;
         this.price = price;
         this.stock = stock;
+    }
+
+    public ProductDTO() {
+
     }
 
     public Path getImg() {
@@ -66,4 +71,26 @@ public class ProductDTO {
         return stock;
     }
 
+    public Product toProduct(){
+        Product product = new Product();
+        product.setProductType(this.productType);
+        product.setProductName(this.productName);
+        product.setDescription(this.description);
+        product.setPrice(this.price);
+        product.setStock(this.stock);
+        return product;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductDTO)) return false;
+        ProductDTO that = (ProductDTO) o;
+        return getProductType() == that.getProductType() && Objects.equals(getProductName(), that.getProductName()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getPrice(), that.getPrice()) && Objects.equals(getStock(), that.getStock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductType(), getProductName(), getDescription(), getPrice(), getStock());
+    }
 }
