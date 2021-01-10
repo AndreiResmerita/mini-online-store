@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface OrderItemDAO {
 
-    public void insert();
+    public void insert(CartDTO cartDTO, ProductDTO productDTO, Integer quantity,OrderItemDTO itemDTO) throws SQLException;
 
     public OrderItemDTO getMostBoughtProduct(OrderItemDTO orderItemDTO) throws SQLException;
 

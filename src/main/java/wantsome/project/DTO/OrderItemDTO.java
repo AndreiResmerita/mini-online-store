@@ -20,6 +20,10 @@ public class OrderItemDTO {
         this.quantity = orderItem.getQuantity();
     }
 
+    public OrderItemDTO() {
+
+    }
+
     public Integer getId() {
         return id;
     }

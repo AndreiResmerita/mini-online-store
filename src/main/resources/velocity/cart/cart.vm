@@ -13,7 +13,7 @@
             <td>$p.description</td>
         </tr>
     #end
-#end
+
     <tr>
         <td>$price</td>
     </tr>
