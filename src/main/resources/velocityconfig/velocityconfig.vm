@@ -9,4 +9,9 @@
 #* @vtlvariable name="cart" type="wantsome.project.DTO.CartDTO" *#
 #* @vtlvariable name="authenticationFailed" type="java.lang.String" *#
 #* @vtlvariable name="authenticationSucceeded" type="java.lang.String" *#
+#* @vtlvariable name="redirectBack" type="java.lang.String" *#
+#* @vtlvariable name="alreadylogged" type="java.lang.String" *#
+#* @vtlvariable name="added" type="java.lang.String" *#
+#* @vtlvariable name="succes" type="java.lang.String" *#
+
 

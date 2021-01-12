@@ -1,6 +1,7 @@
 package wantsome.project.DAO;
 
 import wantsome.project.DTO.ProductDTO;
+import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
 
 import java.nio.file.Path;
@@ -12,6 +13,11 @@ import java.util.Random;
 import static wantsome.project.DBManager.getConnection;
 
 public class ProductDAOImpl implements ProductDAO {
+
+
+
+
+
 
     public ProductDTO getRandomProduct() throws SQLException {
         return getAllProducts().get(new Random().nextInt(getAllProducts().size()));
@@ -46,7 +52,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public void update(ProductDTO productDTO, Integer id) throws SQLException {
+    public void update(ProductDTO productDTO) throws SQLException {
         String query = "update products set  product_name = ?, description = ?, price = ?, stock = ? where id = ?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -59,6 +65,15 @@ public class ProductDAOImpl implements ProductDAO {
         }
     }
 
+    public void updateStock(Integer quantity, ProductDTO productDTO) throws SQLException {
+        String query = "update products set stock = ? where id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setInt(2, productDTO.getId());
+            preparedStatement.executeUpdate();
+        }
+    }
     @Override
     public void deleteProduct(Integer id) {
         String sql = "DELETE FROM products WHERE id = ?";

@@ -9,16 +9,25 @@ import wantsome.project.DTO.UserDTO;
 import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 import wantsome.project.web.Paths;
+import wantsome.project.web.RequestUtil.RequestUtil;
 import wantsome.project.web.SparkUtil;
 import java.util.HashMap;
 import java.util.Map;
+
+import static wantsome.project.DAO.CartDAOImpl.products;
 import static wantsome.project.web.RequestUtil.RequestUtil.*;
 
 public class RegisterController {
 
     public static Route getRegisterPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
-        model.put("loggedOut", removeSessionAttrLoggedOut(request));
+        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
+        if (userDTO!=null){
+            model.put("alreadylogged",true);
+            model.put("cs", products.size());
+            return SparkUtil.render(request,model,Paths.Template.MAIN);
+        }
         return SparkUtil.render(request, model, Paths.Template.REGISTER);
     };
 
@@ -30,11 +39,10 @@ public class RegisterController {
                 request.queryParams("phone"));
         UserDTO userDTO = new UserDTO(user);
         userDAO.addCustomer(userDTO);
-        model.put("authenticationSucceeded", true);
-        model.put("regAlert" ,true);
+        model.put("registrationSucceeded", true);
         request.session().attribute("currentUser", getQueryEmail(request));
-        response.redirect("/main");
-        return null;
+
+        return SparkUtil.render(request,model,Paths.Template.MAIN);
     };
 
 }

@@ -2,13 +2,43 @@ package wantsome.project.DAO;
 
 import wantsome.project.Controller.CartController;
 import wantsome.project.DTO.CartDTO;
+import wantsome.project.DTO.ProductDTO;
 import wantsome.project.DTO.UserDTO;
+import wantsome.project.Model.Product;
+
 import java.sql.*;
-import java.util.List;
+import java.util.*;
 
 import static wantsome.project.DBManager.getConnection;
 
 public class CartDAOImpl implements CartDAO {
+
+
+    public static List<Product> products = new ArrayList<>();
+    public static List<ProductDTO> productDTOList = new ArrayList<>();
+    public static Integer frequency(List<Product> products) {
+        int result = 0;
+
+        Set<Product> set = new HashSet<>(products);
+        for (Product p : set) {
+            result = Collections.frequency(products, p);
+        }
+        return result;
+    }
+    public static void addInCart(ProductDTO p) {
+        products.add(p.toProduct());
+        productDTOList.add(p);
+    }
+
+    public static Integer getTotalPrice() {
+        Integer sum = 0;
+        for (ProductDTO p : productDTOList) {
+            sum += p.getPrice();
+
+        }
+        return sum;
+    }
+
 
 
     @Override
@@ -20,7 +50,7 @@ public class CartDAOImpl implements CartDAO {
 
             statement.setInt(1, userDTO.getId());
             statement.setString(2, cartDTO.getPaymentType().name());
-            statement.setInt(3, CartController.getTotalPrice());
+            statement.setInt(3, getTotalPrice());
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {

@@ -3,6 +3,9 @@
 
 <h1>$product.getProductName()</h1>
 
+    #if($added)
+    <b>  Product added successfully in cart</b>
+    #end
 <div class="product">
     <img src="/$product.img" alt="$product.productName">
 </div>

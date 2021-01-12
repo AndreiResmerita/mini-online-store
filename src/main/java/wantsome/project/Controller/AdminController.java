@@ -51,7 +51,7 @@ public class AdminController {
         ProductDAOImpl productDAO = new ProductDAOImpl();
         ProductDTO product = productDAO.getById(Integer.parseInt(getParamsProdId(request)));
         product = new ProductDTO(product.getId(), product.getImg(), product.getProductType(), request.queryParams("product_name"), request.queryParams("description"), Integer.parseInt(request.queryParams("price")), Integer.parseInt(request.queryParams("stock")));
-        productDAO.update(product, product.getId());
+        productDAO.update(product);
         response.redirect(Paths.Web.ADMINPANEL);
         return null;
     };

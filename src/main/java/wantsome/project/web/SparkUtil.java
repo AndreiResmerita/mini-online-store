@@ -5,6 +5,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.template.velocity.*;
 import wantsome.project.Controller.CartController;
+import wantsome.project.DAO.CartDAOImpl;
 
 import java.util.Map;
 
@@ -19,10 +20,11 @@ public class SparkUtil {
      */
 
     public static String render(Request request, Map<String, Object> model, String templatePath) {
-        model.put("cs", CartController.productDTOList.size());
+        model.put("cs", CartDAOImpl.productDTOList.size());
         model.put("admin",getSessionAdmin(request));
         model.put("currentUser", getSessionCurrentUser(request));
         model.put("WebPath", Paths.Web.class);
+
         return strictVelocityEngine().render(new ModelAndView(model, templatePath));
     }
 

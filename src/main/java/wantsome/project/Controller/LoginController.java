@@ -4,12 +4,13 @@ import org.mindrot.jbcrypt.BCrypt;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
 import wantsome.project.DAO.UserDAOImpl;
-import wantsome.project.DTO.CartDTO;
 import wantsome.project.DTO.UserDTO;
 import wantsome.project.web.Paths;
+import wantsome.project.web.RequestUtil.RequestUtil;
 import wantsome.project.web.SparkUtil;
-
+import static wantsome.project.DAO.CartDAOImpl.*;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +19,16 @@ import static wantsome.project.web.RequestUtil.RequestUtil.*;
 
 public class LoginController {
     public static Route getLoginPage = (Request request, Response response) -> {
-
         Map<String, Object> model = new HashMap<>();
-        model.put("cs", CartController.productDTOList.size());
-        model.put("loggedOut", removeSessionAttrLoggedOut(request));
+        UserDAOImpl userDAO = new UserDAOImpl();
+        UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
+        if (userDTO!=null){
+            model.put("alreadylogged",true);
+            model.put("cs", products.size());
+            return SparkUtil.render(request,model,Paths.Template.MAIN);
+        }
+          model.put("cs", productDTOList.size());
+        model.put("redirectBack",removeSessionAttrRedirectBack(request));
         return SparkUtil.render(request, model, Paths.Template.LOGIN);
     };
 
@@ -38,13 +45,14 @@ public class LoginController {
             model.put("authenticationFailed", true);
             return SparkUtil.render(request, model, Paths.Template.LOGIN);
         } else
-            model.put("cs", CartController.productDTOList.size());
+            model.put("cs", productDTOList.size());
         model.put("authenticationSucceeded", true);
+        request.session().attribute("currentUser", getQueryEmail(request));
         if (getQueryRedirectBack(request) != null) {
+
             response.redirect(getQueryRedirectBack(request));
         }
-        request.session().attribute("currentUser", getQueryEmail(request));
-        return SparkUtil.render(request, model, Paths.Template.LOGIN);
+        return SparkUtil.render(request, model, Paths.Template.MAIN);
     };
 
     public static Route handleLogoutPost = (Request request, Response response) -> {

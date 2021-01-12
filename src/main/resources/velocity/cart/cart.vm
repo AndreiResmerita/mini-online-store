@@ -1,29 +1,45 @@
 #parse("layout.vm")
 #@mainLayout()
+    #if($orderFinish)
+        You have successfully sent the order!
+
+
+    #elseif($listP<1)
+    <b>Your cart is empty</b>
+    #else
 <form action="/cart" method="post">
-
-
-<table>
-    <tr>
-        <td>Products:</td>
-    </tr>
     #foreach ( $p in $allProducts)
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr>
             <td>$p.productName</td>
             <td>$p.description</td>
-        </tr>
-    #end
+            <td>$p.price</td>
+            <td>$quantity</td>
+            <td>$price</td>
 
-    <tr>
-        <td>$price</td>
-    </tr>
-</table>
+        </tr>
+
+        </tbody>
+    </table>
+#end
     <input type="radio" name="type_of_payment" value="CASHONDELIVERY">
     <label for="CASHONDELIVERY">Cash on delivery</label><br>
     <input type="radio" name="type_of_payment" value="CARD">
     <label for="CARD">Card</label><br>
 
-    <button class="ui-button" type="submit">Finish order</button>
+    <button class="btn btn-outline-success" onload="showAlert()" type="submit">Finish order</button>
 </form>
 
+#end
 #end

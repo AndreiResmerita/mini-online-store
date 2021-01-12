@@ -1,5 +1,15 @@
 #parse("/layout.vm")
 #@mainLayout()
+#if($alreadylogged)
+<p><b>You are already logged in with, $currentUser</b></p>
+
+
+#elseif($authenticationSucceeded)
+<p><b>You are logged in with, $currentUser</b></p>
+        #elseif($registrationSucceeded)
+<p><b>Congrats you just made an account with $currentUser</b></p>
+
+        #end
 #if($product)
 <h1>Product of the day: </h1>
 <div class="product">

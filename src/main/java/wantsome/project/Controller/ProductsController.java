@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
+import static wantsome.project.DAO.CartDAOImpl.*;
 
 public class ProductsController {
 
@@ -25,7 +26,7 @@ public class ProductsController {
     public static Route getProductsPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
-        model.put("cs", CartController.productDTOList.size());
+        model.put("cs", productDTOList.size());
         model.put("products", productDAO.getAllProducts());
         return SparkUtil.render(request, model, Paths.Template.PRODUCTS);
     };
@@ -49,7 +50,7 @@ public class ProductsController {
     public static Route getEachProductsPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
-        model.put("cs", CartController.productDTOList.size());
+        model.put("cs", productDTOList.size());
         ProductDTO productDTO = productDAO.getById(Integer.parseInt(getParamsProdId(request)));
         model.put("product", productDTO);
         return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);

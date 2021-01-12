@@ -10,7 +10,8 @@ public interface ProductDAO {
 
     void addProduct(ProductDTO productDTO) throws SQLException;
 
-    public void update(ProductDTO productDTO, Integer id) throws SQLException;
+    public void update(ProductDTO productDTO) throws SQLException;
+    public void updateStock(Integer quantity,ProductDTO productDTO) throws SQLException;
 
     public void deleteProduct(Integer id);
 

@@ -13,17 +13,19 @@ import wantsome.project.web.SparkUtil;
 
 import java.util.HashMap;
 import java.util.Map;
+import static wantsome.project.DAO.CartDAOImpl.*;
 
 public class UserController {
 
     public static Route getAccSet = (Request request, Response response) -> {
+        LoginController.ensureUserIsLoggedIn(request,response);
         Map<String, Object> model = new HashMap<>();
-        model.put("cs", CartController.productDTOList.size());
+        model.put("cs", productDTOList.size());
         return SparkUtil.render(request,model, Paths.Template.ACCSETTINGS);
     };
     public static Route changeAccSet = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
-        model.put("cs", CartController.productDTOList.size());
+        model.put("cs", productDTOList.size());
         UserDAOImpl userDAO = new UserDAOImpl();
         UserDTO userDTOOLD = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
 

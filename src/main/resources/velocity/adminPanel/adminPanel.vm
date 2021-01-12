@@ -1,10 +1,10 @@
 #parse("layout.vm")
 #@mainLayout()
-adminPanel
+<h4>Add a product below:</h4>
 
 
 <form action="/adminpanel" method='post' enctype='multipart/form-data'>
-<b>Please choose a photo:</b>
+<i>Please choose a photo:</i>
     </br>
     <input type='file' name='img' accept='.jpg,.png'>
 </br>

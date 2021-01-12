@@ -71,6 +71,10 @@ public class ProductDTO {
         return stock;
     }
 
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
     public Product toProduct(){
         Product product = new Product();
         product.setProductType(this.productType);
