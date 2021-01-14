@@ -5,13 +5,13 @@ import spark.Response;
 import spark.Route;
 import wantsome.project.DAO.ProductDAOImpl;
 import wantsome.project.DTO.ProductDTO;
-import wantsome.project.Model.Product;
 import wantsome.project.web.Paths;
 import wantsome.project.web.SparkUtil;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import static wantsome.project.DAO.CartDAOImpl.frequency;
+import static wantsome.project.DAO.CartDAOImpl.productDTOList;
 import static wantsome.project.web.RequestUtil.RequestUtil.*;
 
 
@@ -22,19 +22,18 @@ public class AdminController {
         Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
         model.put("products", productDAO.getAllProducts());
+        model.put("quantity", frequency(productDTOList));
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
     };
 
     public static Route delete = (Request request, Response response) -> {
         LoginController.ensureUserIsAdmin(request, response);
-        Map<String, Object> model = new HashMap<>();
         ProductDAOImpl productDAO = new ProductDAOImpl();
         String query = getParamsProdId(request);
         productDAO.deleteProduct(Integer.parseInt(query));
-        model.put("products", productDAO.getAllProducts());
         response.redirect(Paths.Web.ADMINPANEL);
-        return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
+        return null;
     };
 
     public static Route getEditProductAdmin = (Request request, Response response) -> {

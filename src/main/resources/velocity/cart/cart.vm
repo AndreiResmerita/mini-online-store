@@ -1,45 +1,45 @@
 #parse("layout.vm")
 #@mainLayout()
     #if($orderFinish)
-        You have successfully sent the order!
-
-
+    You have successfully sent the order!
     #elseif($listP<1)
     <b>Your cart is empty</b>
     #else
-<form action="/cart" method="post">
-    #foreach ( $p in $allProducts)
+    <form action="/cart" method="post">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach( $key in $quantity.entrySet())
+                <tr>
+                    <td>$key.getKey().getProductName()</td>
+                    <td>$key.getKey().getDescription()</td>
+                    <td>$key.getKey().getPrice()</td>
+                    <td>$key.getValue()</td>
+                    <td><a href="/cart/$key.getKey().getId()" class="badge badge-danger">Remove item</a></td>
+                #end
+            </tr>
+            </tbody>
+        </table>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Product Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>$p.productName</td>
-            <td>$p.description</td>
-            <td>$p.price</td>
-            <td>$quantity</td>
-            <td>$price</td>
+        <div class="d-flex flex-column bd-highlight mb-3 justify-content-end">
+            <div class="p-2 bd-highlight"> <b><u>Total price for your order is: $price</u></b></div>
+            <div class="p-2 bd-highlight"><input type="radio" name="type_of_payment" value="CASHONDELIVERY">
+                <label for="CASHONDELIVERY">Cash on delivery</label><br>
+                <input type="radio" name="type_of_payment" value="CARD">
+                <label for="CARD">Card</label><br></div>
+            <div class="p-2 bd-highlight"><button class="btn btn-outline-success"  type="submit">Finish order</button></div>
+        </div>
 
-        </tr>
 
-        </tbody>
-    </table>
-#end
-    <input type="radio" name="type_of_payment" value="CASHONDELIVERY">
-    <label for="CASHONDELIVERY">Cash on delivery</label><br>
-    <input type="radio" name="type_of_payment" value="CARD">
-    <label for="CARD">Card</label><br>
+    </form>
 
-    <button class="btn btn-outline-success" onload="showAlert()" type="submit">Finish order</button>
-</form>
-
-#end
+    #end
 #end

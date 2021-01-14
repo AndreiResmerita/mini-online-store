@@ -1,7 +1,7 @@
 package wantsome.project.DAO;
 
 import wantsome.project.DTO.ProductDTO;
-import wantsome.project.Model.Product;
+
 import wantsome.project.Model.ProductType;
 
 import java.nio.file.Path;
@@ -65,12 +65,12 @@ public class ProductDAOImpl implements ProductDAO {
         }
     }
 
-    public void updateStock(Integer quantity, ProductDTO productDTO) throws SQLException {
+    public void updateStock(Long quantity, Integer id) throws SQLException {
         String query = "update products set stock = ? where id = ?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, quantity);
-            preparedStatement.setInt(2, productDTO.getId());
+            preparedStatement.setInt(1, quantity.intValue());
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
         }
     }

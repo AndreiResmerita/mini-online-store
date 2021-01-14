@@ -1,6 +1,7 @@
 package wantsome.project;
 
 import spark.Spark;
+import wantsome.project.Controller.LoginOrRegister;
 import wantsome.project.web.Paths;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
@@ -8,6 +9,7 @@ import static wantsome.project.Controller.AboutController.getAboutPage;
 import static wantsome.project.Controller.AdminController.*;
 import static wantsome.project.Controller.CartController.*;
 import static wantsome.project.Controller.LoginController.*;
+import static wantsome.project.Controller.LoginOrRegister.LogOrReg;
 import static wantsome.project.Controller.MainController.getMainPage;
 import static wantsome.project.Controller.ProductsController.*;
 import static wantsome.project.Controller.RegisterController.getRegisterPage;
@@ -46,6 +48,9 @@ public class Main {
         get(Paths.Web.ABOUTPAGE, getAboutPage);
         get(Paths.Web.CARTPAGE, getCartPage);
         get(Paths.Web.ACCSETTINGS,getAccSet);
+        get(Paths.Web.CARTPAGED,removeItem);
+        get(Paths.Web.LOGORREG, LogOrReg);
+
 
         post(Paths.Web.CARTPAGE,finishOrder);
         post(Paths.Web.REGISTER, handleRegisterPost);

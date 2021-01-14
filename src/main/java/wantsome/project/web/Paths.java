@@ -15,6 +15,8 @@ public class Paths {
         public static final String ABOUTPAGE = "/about";
         public static final String CARTPAGE = "/cart";
         public static final String ACCSETTINGS = "/accset";
+        public static final String CARTPAGED = "/cart/:id";
+        public static final String LOGORREG = "/";
 
 
     }
@@ -30,6 +32,7 @@ public class Paths {
         public static final String ABOUTPAGE = "/velocity/about/about.vm";
         public static final String CARTPAGE = "/velocity/cart/cart.vm";
         public static final String ACCSETTINGS = "/velocity/userAcc/accset.vm";
+        public static final String LOGORREG = "/velocity/userAcc/logorreg.vm";
 
     }
 }

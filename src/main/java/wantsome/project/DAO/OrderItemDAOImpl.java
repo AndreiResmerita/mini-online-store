@@ -13,7 +13,7 @@ import static wantsome.project.DBManager.getConnection;
 
 public class OrderItemDAOImpl implements OrderItemDAO {
     @Override
-    public void insert(CartDTO cartDTO, ProductDTO productDTO, Integer quantity,OrderItemDTO itemDTO) throws SQLException {
+    public void insert(CartDTO cartDTO, ProductDTO productDTO, Long quantity,OrderItemDTO itemDTO) throws SQLException {
         String query = "insert into order_item (cart_id, product_id,quantity) values (?,?,?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(query,
@@ -21,7 +21,7 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 
             statement.setInt(1, cartDTO.getId());
             statement.setInt(2, productDTO.getId());
-            statement.setInt(3, quantity);
+            statement.setInt(3, quantity.intValue());
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {

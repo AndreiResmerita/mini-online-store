@@ -10,8 +10,11 @@ import wantsome.project.DTO.UserDTO;
 import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
 import wantsome.project.web.SparkUtil;
+
 import static wantsome.project.DAO.CartDAOImpl.*;
+
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,13 +25,13 @@ public class LoginController {
         Map<String, Object> model = new HashMap<>();
         UserDAOImpl userDAO = new UserDAOImpl();
         UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
-        if (userDTO!=null){
-            model.put("alreadylogged",true);
+        if (userDTO != null) {
+            model.put("alreadylogged", true);
             model.put("cs", products.size());
-            return SparkUtil.render(request,model,Paths.Template.MAIN);
+            return SparkUtil.render(request, model, Paths.Template.MAIN);
         }
-          model.put("cs", productDTOList.size());
-        model.put("redirectBack",removeSessionAttrRedirectBack(request));
+        model.put("cs", productDTOList.size());
+        model.put("redirectBack", removeSessionAttrRedirectBack(request));
         return SparkUtil.render(request, model, Paths.Template.LOGIN);
     };
 
@@ -49,7 +52,6 @@ public class LoginController {
         model.put("authenticationSucceeded", true);
         request.session().attribute("currentUser", getQueryEmail(request));
         if (getQueryRedirectBack(request) != null) {
-
             response.redirect(getQueryRedirectBack(request));
         }
         return SparkUtil.render(request, model, Paths.Template.MAIN);
@@ -103,7 +105,8 @@ public class LoginController {
     public static void ensureUserIsLoggedIn(Request request, Response response) {
         if (request.session().attribute("currentUser") == null) {
             request.session().attribute("redirectBack", request.pathInfo());
-            response.redirect(Paths.Web.LOGIN);
+            response.redirect(Paths.Web.LOGORREG);
+
         }
     }
 

@@ -21,9 +21,7 @@ public class RegisterController {
 
     public static Route getRegisterPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
-        UserDAOImpl userDAO = new UserDAOImpl();
-        UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
-        if (userDTO!=null){
+        if (getSessionCurrentUser(request)!=null){
             model.put("alreadylogged",true);
             model.put("cs", products.size());
             return SparkUtil.render(request,model,Paths.Template.MAIN);
@@ -41,7 +39,6 @@ public class RegisterController {
         userDAO.addCustomer(userDTO);
         model.put("registrationSucceeded", true);
         request.session().attribute("currentUser", getQueryEmail(request));
-
         return SparkUtil.render(request,model,Paths.Template.MAIN);
     };
 

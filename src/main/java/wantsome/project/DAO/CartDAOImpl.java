@@ -1,6 +1,5 @@
 package wantsome.project.DAO;
 
-import wantsome.project.Controller.CartController;
 import wantsome.project.DTO.CartDTO;
 import wantsome.project.DTO.ProductDTO;
 import wantsome.project.DTO.UserDTO;
@@ -8,6 +7,8 @@ import wantsome.project.Model.Product;
 
 import java.sql.*;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static wantsome.project.DBManager.getConnection;
 
@@ -16,15 +17,16 @@ public class CartDAOImpl implements CartDAO {
 
     public static List<Product> products = new ArrayList<>();
     public static List<ProductDTO> productDTOList = new ArrayList<>();
-    public static Integer frequency(List<Product> products) {
-        int result = 0;
 
-        Set<Product> set = new HashSet<>(products);
-        for (Product p : set) {
-            result = Collections.frequency(products, p);
-        }
-        return result;
+    public static Map<ProductDTO, Long> frequency(List<ProductDTO> products) {
+
+        return products.stream().collect(Collectors.groupingBy(Function.identity() , Collectors.counting()));
     }
+
+    public static void remove(ProductDTO p , List<ProductDTO>productDTOList) {
+        productDTOList.remove(p);
+    }
+
     public static void addInCart(ProductDTO p) {
         products.add(p.toProduct());
         productDTOList.add(p);
@@ -34,12 +36,9 @@ public class CartDAOImpl implements CartDAO {
         Integer sum = 0;
         for (ProductDTO p : productDTOList) {
             sum += p.getPrice();
-
         }
         return sum;
     }
-
-
 
     @Override
     public void sendOrder(UserDTO userDTO, CartDTO cartDTO) throws SQLException {

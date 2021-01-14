@@ -13,5 +13,8 @@
 #* @vtlvariable name="alreadylogged" type="java.lang.String" *#
 #* @vtlvariable name="added" type="java.lang.String" *#
 #* @vtlvariable name="succes" type="java.lang.String" *#
+#* @vtlvariable name="quantity" type="java.util.Map" *#
+
+
 
 

@@ -16,3 +16,4 @@ public interface UserDAO {
 
     public UserDTO getById(Integer id) throws SQLException;
 }
+

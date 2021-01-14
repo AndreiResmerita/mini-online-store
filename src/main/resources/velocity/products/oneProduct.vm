@@ -1,24 +1,27 @@
 #parse("layout.vm")
 #@mainLayout()
-
-<h1>$product.getProductName()</h1>
+<div class="container">
+    <div class="row">
+<h4>$product.getProductName(), $product.getDescription(), $product.getPrice() RON</h4>
 
     #if($added)
     <b>  Product added successfully in cart</b>
     #end
+    </div>
 <div class="product">
     <img src="/$product.img" alt="$product.productName">
 </div>
 
-<div class="container">
-<div class="row">
-    <div class="col-sm">
+
+<div class="d-flex justify-content-end">
+
+    <div class="col-md-20">
         <form action="/products/$product.getId()" method="post">
-        <button type="submit"  class="btn btn-outline-primary">Add to cart</button>
+            <button type="submit"  class="btn btn-outline-primary">Add to cart</button>
         </form>
+
+
     </div>
 </div>
-
-
 #end
 

@@ -1,6 +1,5 @@
 package wantsome.project.Controller;
 
-import org.eclipse.jetty.util.log.Log;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -48,11 +47,13 @@ public class CartController {
     public static Route getCartPage = (Request request, Response response) -> {
         LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
+
         model.put("price", getTotalPrice());
         model.put("cs", productDTOList.size());
         model.put("allProducts", productDTOList.stream().distinct().collect(Collectors.toList()));
-        model.put("quantity", frequency(products));
+        model.put("quantity", frequency(productDTOList));
         model.put("listP", productDTOList.size());
+
         return SparkUtil.render(request, model, Paths.Template.CARTPAGE);
     };
 
@@ -64,26 +65,40 @@ public class CartController {
         UserDAOImpl userDAO = new UserDAOImpl();
         CartDAOImpl cartDAO = new CartDAOImpl();
 
-        model.put("quantity", frequency(products));
+        model.put("quantity", frequency(productDTOList));
         model.put("listP", products);
         model.put("allProducts", productDTOList);
         model.put("price", getTotalPrice());
         model.put("cs", productDTOList.size());
-        model.put("orderFinish",true);
+        model.put("orderFinish", true);
 
         UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
         Cart cart = new Cart(PaymentType.valueOf(request.queryParams("type_of_payment")), getTotalPrice());
         CartDTO cartDTO = new CartDTO(cart);
         cartDAO.sendOrder(userDTO, cartDTO);
-        int freq = frequency(products);
 
-        for (ProductDTO p : productDTOList.stream().distinct().collect(Collectors.toList())) {
-            productDAO.updateStock(p.getStock() - freq, p);
-            orderItemDAO.insert(cartDTO, p, freq, orderItemDTO);
+        for (Map.Entry<ProductDTO,Long> p : frequency(productDTOList).entrySet()) {
+            productDAO.updateStock(p.getKey().getStock() - p.getValue(), p.getKey().getId());
+            orderItemDAO.insert(cartDTO, p.getKey(), p.getKey().getStock()-p.getValue(), orderItemDTO);
         }
         productDTOList.clear();
         products.clear();
-        return SparkUtil.render(request,model,Paths.Template.CARTPAGE);
+        return SparkUtil.render(request, model, Paths.Template.CARTPAGE);
+    };
+
+    public static Route removeItem = (Request request, Response response) -> {
+        LoginController.ensureUserIsLoggedIn(request, response);
+        Map<String, Object> model = new HashMap<>();
+        model.put("price", getTotalPrice());
+        model.put("cs", productDTOList.size());
+        model.put("allProducts", productDTOList.stream().distinct().collect(Collectors.toList()));
+        model.put("quantity", frequency(productDTOList));
+        model.put("listP", productDTOList.size());
+        ProductDAOImpl productDAO = new ProductDAOImpl();
+        ProductDTO productDTO = productDAO.getById(Integer.valueOf(request.params("id")));
+        remove(productDTO, productDTOList);
+        response.redirect(Paths.Web.CARTPAGE);
+        return null;
     };
 
 }

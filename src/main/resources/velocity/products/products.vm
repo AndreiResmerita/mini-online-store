@@ -1,18 +1,20 @@
 #parse("layout.vm")
 #@mainLayout()
-<h1>Products: </h1>
+<div class="d-flex justify-content-center">
 
+<h1>Products: </h1>
+</div>
+<div class="parent">
     #foreach($product in $products)
-    <div class="container">
-        <div class="flex">
-            <div class="product">
-                <a class="products" href="/products/${product.getId()}">
+    <div class="child">
+        <a class="book" href="/products/$product.getId()">
+            <div class="bookCover" >
                     <img src="$product.getImg()" alt="$product.productName"/>
+            </div>
                     $product.productName
                 </a>
             </div>
-        </div>
-    </div>
     #end
+</div>
 #end
 
