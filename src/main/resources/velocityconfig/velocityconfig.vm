@@ -1,5 +1,4 @@
 #* @implicitly included *#
-#* @vtlvariable name="WebPath" type="wantsome.project.web.Paths.Web" *#
 #* @vtlvariable name="currentUser" type="java.lang.String" *#
 #* @vtlvariable name="admin" type="java.lang.String" *#
 #* @vtlvariable name="edit" type="java.lang.String" *#
