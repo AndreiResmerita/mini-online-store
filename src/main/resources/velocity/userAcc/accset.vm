@@ -1,15 +1,11 @@
 #parse("layout.vm")
 #@mainLayout()
-
-
 <div class="card">
     <div class="card-body">
-       If you want to change your account details please insert the new ones below...
+        If you want to change your account details please insert the new ones below...
     </div>
 </div>
-
 <form action="/accset" method="post">
-
     <div class="d-flex flex-row" id="usracc">
         <div class="p-2">
             <input type="email" name="email" class="form-control" placeholder="Enter new email">
@@ -17,22 +13,16 @@
         <div class="p-2">
             <input type="password" name="password" class="form-control" placeholder="Enter new password">
         </div>
-
         <div class="p-2">
-        <input type="text" name="name" class="form-control" placeholder="Enter new name">
-    </div>
-    <div class="p-2">
-        <input type="text" name="address" class="form-control" placeholder="Enter new address">
-    </div>
+            <input type="text" name="name" class="form-control" placeholder="Enter new name">
+        </div>
         <div class="p-2">
-    <input type="number" name="phone_number" class="form-control" placeholder="Enter new phone number">
+            <input type="text" name="address" class="form-control" placeholder="Enter new address">
+        </div>
+        <div class="p-2">
+            <input type="number" name="phone_number" class="form-control" placeholder="Enter new phone number">
         </div>
     </div>
-
     <button type="submit" class="btn btn-outline-primary" id="btnaccset">Change</button>
-
-
 </form>
-
-
 #end

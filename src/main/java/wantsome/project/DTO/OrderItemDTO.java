@@ -1,8 +1,5 @@
 package wantsome.project.DTO;
 
-import wantsome.project.Model.Cart;
-import wantsome.project.Model.OrderItem;
-
 public class OrderItemDTO {
     private Integer id;
     private CartDTO cart;
@@ -14,10 +11,6 @@ public class OrderItemDTO {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
-    }
-
-    public OrderItemDTO(OrderItem orderItem) {
-        this.quantity = orderItem.getQuantity();
     }
 
     public OrderItemDTO() {

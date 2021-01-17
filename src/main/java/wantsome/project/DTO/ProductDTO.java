@@ -2,18 +2,24 @@ package wantsome.project.DTO;
 
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
+
+
 import java.nio.file.Path;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 
 public class ProductDTO {
-    private  Path img;
+    private final Path img;
     private Integer id;
-    private  ProductType productType;
-    private  String productName;
-    private  String description;
-    private  Integer price;
-    private  Integer stock;
+    private final ProductType productType;
+    private String productName;
+    private String description;
+    private Integer price;
+    private Integer stock;
 
 
     public ProductDTO(Product product) {
@@ -33,10 +39,6 @@ public class ProductDTO {
         this.description = description;
         this.price = price;
         this.stock = stock;
-    }
-
-    public ProductDTO() {
-
     }
 
     public Path getImg() {
@@ -64,18 +66,18 @@ public class ProductDTO {
     }
 
     public Integer getPrice() {
-        return price;
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator(' ');
+        formatter.setDecimalFormatSymbols(symbols);
+       return price;
     }
 
     public Integer getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public Product toProduct(){
+    public Product toProduct() {
         Product product = new Product();
         product.setProductType(this.productType);
         product.setProductName(this.productName);
@@ -96,5 +98,14 @@ public class ProductDTO {
     @Override
     public int hashCode() {
         return Objects.hash(getProductType(), getProductName(), getDescription(), getPrice(), getStock());
+    }
+
+    public String numberFormat(){
+        Integer num = price;
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(num.longValue());
     }
 }

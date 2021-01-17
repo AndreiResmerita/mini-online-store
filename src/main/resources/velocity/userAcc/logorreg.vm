@@ -1,7 +1,7 @@
 #parse("layout.vm")
 #@mainLayout()
-
-        <div class="d-flex justify-content-center" >
-            <b>You are not logged in, please <a class="hvr-buzz" href="/register">Register</a> or <a class="hvr-buzz" href="/login">Login</a></b>
-        </div>
+<div class="d-flex justify-content-center">
+    <b>You are not logged in, please <a class="hvr-buzz" href="/register">Register</a> or <a class="hvr-buzz"
+                                                                                             href="/login">Login</a></b>
+</div>
 #end

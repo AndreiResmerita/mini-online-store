@@ -1,7 +1,6 @@
 #parse("layout.vm")
 #@mainLayout()
 <form method="post">
-
     #if($authenticationFailed)
         <p> Authentication failed</p>
     #elseif($authenticationSucceeded)
@@ -25,11 +24,9 @@
         <input type="hidden" name="redirectBack" value="$redirectBack">
     #end
     <div class="btn">
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
-
 #end
 
 

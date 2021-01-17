@@ -1,19 +1,30 @@
 #parse("layout.vm")
 #@mainLayout()
 <div class="d-flex justify-content-center">
-
-<h1>Products: </h1>
+    <h1>Products: </h1>
 </div>
 <div class="parent">
     #foreach($product in $products)
-    <div class="child">
-        <a class="book" href="/products/$product.getId()">
-            <div class="bookCover" >
-                    <img src="$product.getImg()" alt="$product.productName"/>
-            </div>
+        #if($product.stock ==0)
+            <div class="child">
+                <a class="product" href="/products/$product.getId()">
+                    <div class="productCover">
+                        <div class="centered">Out of stock</div>
+                        <img src="$product.getImg()" alt="$product.productName"/>
+                    </div>
                     $product.productName
                 </a>
             </div>
+        #else
+            <div class="child">
+                <a class="product" href="/products/$product.getId()">
+                    <div class="productCover">
+                        <img src="$product.getImg()" alt="$product.productName"/>
+                    </div>
+                    $product.productName
+                </a>
+            </div>
+        #end
     #end
 </div>
 #end

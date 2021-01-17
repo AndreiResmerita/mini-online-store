@@ -1,6 +1,12 @@
 package wantsome.project.Model;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.Format;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Product {
@@ -26,6 +32,11 @@ public class Product {
         this.description = description;
         this.price = price;
         this.stock = stock;
+        BigDecimal bd = new BigDecimal(price);
+
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("en_US"));
+
+        formatter.format(bd.longValue());
 
     }
 
@@ -79,6 +90,16 @@ public class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String numberFormat() {
+        Integer num = price;
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+
+        symbols.setGroupingSeparator('.');
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(num.longValue());
     }
 
     @Override

@@ -12,7 +12,6 @@ import static wantsome.project.web.RequestUtil.RequestUtil.removeSessionAttrLogg
 public class AboutController {
 
     public static Route getAboutPage = (Request request, Response response) -> {
-
         Map<String, Object> model = new HashMap<>();
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         return SparkUtil.render(request, model, Paths.Template.ABOUTPAGE);

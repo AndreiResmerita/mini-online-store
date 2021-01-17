@@ -1,23 +1,39 @@
 #parse("/layout.vm")
 #@mainLayout()
-#if($alreadylogged)
-<p><b>You are already logged in with, $currentUser</b></p>
+    #if($alreadylogged)
+    <p><b>You are already logged in with, $currentUser</b></p>
+    #elseif($authenticationSucceeded)
+    <p><b>You are logged in with, $currentUser</b></p>
+    #elseif($registrationSucceeded)
+    <p><b>Congrats you just made an account with $currentUser</b></p>
+    #end
+<div class="d-flex justify-content-center"><h2>Welcome!</h2></div>
+<div class="containerMain">
+    #if($product)
 
-
-#elseif($authenticationSucceeded)
-<p><b>You are logged in with, $currentUser</b></p>
-        #elseif($registrationSucceeded)
-<p><b>Congrats you just made an account with $currentUser</b></p>
-
-        #end
-#if($product)
-<h1>Product of the day: </h1>
-<div class="product">
-        <a href="/products/$product.id">$product.productName
-                <img src="/$product.getImg()" alt="$product.getProductName()">
-        </a>
+        <div class="col">
+            <a class="productMain" href="/products/$product.getId()">
+                <h4>Product of the day</h4>
+                <ul>
+                    <li> $product.getProductName()</li>
+                    <li> $product.getDescription()</li>
+                    <li>$product.numberFormat() RON</li>
+                </ul>
+                <img src="$product.getImg()">
+            </a>
+        </div>
+        <div class="col" id="MainCol">
+            <a class="productMain" href="/products/$mostBought.getId()">
+                <h4>Bestseller</h4>
+                <ul>
+                    <li> $mostBought.getProductName()</li>
+                    <li> $mostBought.getDescription()</li>
+                    <li>$mostBought.numberFormat() RON</li>
+                </ul>
+                <img src="$mostBought.getImg()">
+            </a>
+        </div>
+    #end
 </div>
-
-#end
 #end
 

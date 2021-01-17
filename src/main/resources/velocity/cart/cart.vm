@@ -21,25 +21,35 @@
                 <tr>
                     <td>$key.getKey().getProductName()</td>
                     <td>$key.getKey().getDescription()</td>
-                    <td>$key.getKey().getPrice()</td>
-                    <td>$key.getValue()</td>
+                    <td>$key.getKey().numberFormat()</td>
+                    <td><select name="noOfItems" class="custom-select" id="inputGroupSelect011">
+                        <option selected>$key.getValue()</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select></td>
                     <td><a href="/cart/$key.getKey().getId()" class="badge badge-danger">Remove item</a></td>
                 #end
             </tr>
             </tbody>
         </table>
-
         <div class="d-flex flex-column bd-highlight mb-3 justify-content-end">
-            <div class="p-2 bd-highlight"> <b><u>Total price for your order is: $price</u></b></div>
+            <div class="p-2 bd-highlight"><b><u>Total price for your order is: $price</u></b></div>
             <div class="p-2 bd-highlight"><input type="radio" name="type_of_payment" value="CASHONDELIVERY">
                 <label for="CASHONDELIVERY">Cash on delivery</label><br>
                 <input type="radio" name="type_of_payment" value="CARD">
                 <label for="CARD">Card</label><br></div>
-            <div class="p-2 bd-highlight"><button class="btn btn-outline-success"  type="submit">Finish order</button></div>
+            <div class="p-2 bd-highlight">
+                <button class="btn btn-outline-success" type="submit">Finish order</button>
+            </div>
         </div>
-
-
     </form>
-
     #end
 #end

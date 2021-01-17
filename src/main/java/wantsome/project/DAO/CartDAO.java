@@ -3,15 +3,140 @@ package wantsome.project.DAO;
 import wantsome.project.DTO.CartDTO;
 import wantsome.project.DTO.ProductDTO;
 import wantsome.project.DTO.UserDTO;
+import wantsome.project.Model.PaymentType;
+import wantsome.project.Model.Product;
 
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.LongAdder;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static wantsome.project.DBManager.getConnection;
 
 public interface CartDAO {
 
-    public void sendOrder(UserDTO userDTO, CartDTO cartDTO) throws SQLException;
+    List<Product> products = new ArrayList<>();
+    List<ProductDTO> productDTOList = new ArrayList<>();
 
-    public List<CartDTO> getAllCartProducts(CartDTO cartDTO, UserDTO userDTO) throws SQLException;
+    static Map<ProductDTO, Long> frequency(List<ProductDTO> products) {
+        return products.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
 
+    static void remove(ProductDTO p, List<ProductDTO> productDTOList) {
+        productDTOList.remove(p);
+    }
 
+    static void addInCart(ProductDTO p, Integer noOfItems) {
+        for (int i = 0; i < noOfItems; i++) {
+            products.add(p.toProduct());
+            productDTOList.add(p);
+        }
+    }
+
+    static Integer getTotalPrice() {
+        Integer sum = 0;
+        for (ProductDTO p : productDTOList) {
+            sum += p.getPrice();
+        }
+        return sum;
+    }
+
+    static void sendOrder(UserDTO userDTO, CartDTO cartDTO) throws SQLException {
+        String query = "insert into cart (user_id, type_of_payment,total_price) values (?,?,?)";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(query,
+                     Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, userDTO.getId());
+            statement.setString(2, cartDTO.getPaymentType().name());
+            statement.setInt(3, getTotalPrice());
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating cart failed, no rows affected.");
+            }
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    cartDTO.setId(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Creating cart failed, no ID obtained.");
+                }
+            }
+        }
+    }
+
+    static CartDTO getById(Integer id) throws SQLException {
+        CartDTO cartDTO = null;
+        String query = "select * from cart where id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                cartDTO = new CartDTO(rs.getInt(1), UserDAO.getById(rs.getInt(2)), PaymentType.valueOf(rs.getString(3)), rs.getString(4), rs.getInt(5));
+            }
+        }
+        return cartDTO;
+    }
+
+    static List<CartDTO> getAllOrders(Integer userId) throws SQLException {
+        List<CartDTO> cartDTOS = new ArrayList<>();
+        CartDTO cartDTO;
+        String sql = "SELECT DISTINCT c.id \n" +
+                "FROM order_item oi\n" +
+                " JOIN  cart c  ON c.id = oi.cart_id \n" +
+                " join users u on u.id = c.user_id \n" +
+                " join products p on p.id = oi.product_id \n" +
+                "  WHERE u.id = ?;";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                cartDTO = CartDAO.getById(rs.getInt(1));
+                cartDTOS.add(cartDTO);
+            }
+            return cartDTOS;
+        }
+    }
+
+    static Map<ProductDTO, Integer> getListOrder(Integer id) throws SQLException {
+        Map<ProductDTO, Integer> productQuantity = new HashMap<>();
+        String sql = "SELECT  p.id ,oi.quantity \n" +
+                "FROM order_item oi\n" +
+                " JOIN  cart c  ON c.id = oi.cart_id \n" +
+                " join users u on u.id = c.user_id \n" +
+                " join products p on p.id = oi.product_id \n" +
+                "  WHERE c.id = ?;";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ProductDTO productDTO = ProductDAO.getById(rs.getInt(1));
+                productQuantity.put(productDTO, rs.getInt(2));
+            }
+            return productQuantity;
+        }
+    }
+
+    static Integer getTotalPriceForCart(Integer id) throws SQLException {
+        String sql = "Select c.total_price from cart c where id = ? ";
+        Integer result = null;
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                result = rs.getInt(1);
+            }
+            return result;
+        }
+    }
 }

@@ -3,19 +3,26 @@ package wantsome.project.DTO;
 import wantsome.project.Model.Cart;
 import wantsome.project.Model.PaymentType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class CartDTO {
 
     private Integer id;
     private UserDTO userDTO;
     private PaymentType paymentType;
-
+    private String date;
     private Integer totalprice;
 
+    public CartDTO(Integer id, UserDTO userDTO, PaymentType paymentType, String date, Integer totalprice) {
+        this.id = id;
+        this.userDTO = userDTO;
+        this.paymentType = paymentType;
+        this.date = date;
+        this.totalprice = totalprice;
+    }
 
     public CartDTO(Integer id, UserDTO userDTO, PaymentType paymentType, Integer totalprice) {
         this.id = id;
@@ -44,24 +51,30 @@ public class CartDTO {
         return userDTO;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
-    }
-
     public PaymentType getPaymentType() {
         return paymentType;
-    }
-
-    public void setPaymentType(PaymentType paymentType) {
-        this.paymentType = paymentType;
     }
 
     public Integer getTotalprice() {
         return totalprice;
     }
 
-    public void setTotalprice(Integer totalprice) {
-        this.totalprice = totalprice;
+    public String getDate() {
+        return date;
+    }
+
+    public String dateFormat() {
+        String string = date;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = format.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
     }
 
     @Override
@@ -72,5 +85,18 @@ public class CartDTO {
                 ", paymentType=" + paymentType +
                 ", totalprice=" + totalprice +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartDTO)) return false;
+        CartDTO cartDTO = (CartDTO) o;
+        return Objects.equals(getId(), cartDTO.getId()) && Objects.equals(getUserDTO(), cartDTO.getUserDTO()) && getPaymentType() == cartDTO.getPaymentType() && Objects.equals(getDate(), cartDTO.getDate()) && Objects.equals(getTotalprice(), cartDTO.getTotalprice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUserDTO(), getPaymentType(), getDate(), getTotalprice());
     }
 }

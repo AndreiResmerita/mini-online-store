@@ -5,26 +5,30 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import wantsome.project.DAO.UserDAOImpl;
+import wantsome.project.DAO.UserDAO;
 import wantsome.project.DTO.UserDTO;
 import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
 import wantsome.project.web.SparkUtil;
 
-import static wantsome.project.DAO.CartDAOImpl.*;
-
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static wantsome.project.DAO.CartDAO.productDTOList;
+import static wantsome.project.DAO.CartDAO.products;
 import static wantsome.project.web.RequestUtil.RequestUtil.*;
 
 public class LoginController {
+
+    public static Route LogOrReg = (Request request, Response response) -> {
+        Map<String, Object> model = new HashMap<>();
+        return SparkUtil.render(request, model, Paths.Template.LOGORREG);
+    };
+
     public static Route getLoginPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
-        UserDAOImpl userDAO = new UserDAOImpl();
-        UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
+        UserDTO userDTO = UserDAO.getUser(RequestUtil.getSessionCurrentUser(request));
         if (userDTO != null) {
             model.put("alreadylogged", true);
             model.put("cs", products.size());
@@ -36,7 +40,6 @@ public class LoginController {
     };
 
     public static Route handleLoginPost = (Request request, Response response) -> {
-
         Map<String, Object> model = new HashMap<>();
         if (authenticateAsAdmin(getQueryEmail(request), getQueryPassword(request))) {
             request.session().attribute("admin", getQueryEmail(request));
@@ -67,21 +70,17 @@ public class LoginController {
 
     public static boolean checkPassword(String plainTextPassword, String hashPass) {
         boolean verifiedPassword;
-
         if (null == hashPass || !hashPass.startsWith("$2a$"))
             throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
-
         verifiedPassword = BCrypt.checkpw(plainTextPassword, hashPass);
         return (verifiedPassword);
     }
 
     public static boolean authenticate(String email, String password) throws SQLException {
-        UserDAOImpl userDAO = new UserDAOImpl();
-
         if (email.isEmpty() || password.isEmpty()) {
             return false;
         }
-        UserDTO user = userDAO.getUser(email);
+        UserDTO user = UserDAO.getUser(email);
         if (user == null) {
             return false;
         }
@@ -89,12 +88,10 @@ public class LoginController {
     }
 
     public static boolean authenticateAsAdmin(String email, String password) throws SQLException {
-        UserDAOImpl userDAO = new UserDAOImpl();
-
         if (email.isEmpty() || password.isEmpty()) {
             return false;
         }
-        UserDTO user = userDAO.getUser(email);
+        UserDTO user = UserDAO.getUser(email);
         if (user == null) {
             return false;
         }
@@ -106,7 +103,6 @@ public class LoginController {
         if (request.session().attribute("currentUser") == null) {
             request.session().attribute("redirectBack", request.pathInfo());
             response.redirect(Paths.Web.LOGORREG);
-
         }
     }
 

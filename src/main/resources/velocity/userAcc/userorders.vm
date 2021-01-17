@@ -1,0 +1,19 @@
+#parse("layout.vm")
+#@mainLayout()
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Order number</th>
+        <th scope="col">Order date</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach($c in $carts)
+        <tr class='clickable-row' data-href='/orders/$c.getId()'>
+            <th scope="row">$c.getId()</th>
+            <td>$c.dateFormat()</td>
+        </tr>
+        #end
+    </tbody>
+</table>
+#end

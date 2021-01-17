@@ -1,6 +1,6 @@
 #parse("layout.vm")
 #@mainLayout()
-adminPanel
+Admin Panel
 <form action="/adminpanel" method='post' enctype='multipart/form-data'>
     <b>Please choose a photo:</b>
     </br>

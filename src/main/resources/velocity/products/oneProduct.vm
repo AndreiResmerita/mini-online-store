@@ -2,26 +2,44 @@
 #@mainLayout()
 <div class="container">
     <div class="row">
-<h4>$product.getProductName(), $product.getDescription(), $product.getPrice() RON</h4>
-
-    #if($added)
-    <b>  Product added successfully in cart</b>
-    #end
+        <h4>$product.getProductName(), $product.getDescription()</h4>
+        #if($added)
+            <b> Product added successfully in cart</b>
+        #end
     </div>
-<div class="product">
-    <img src="/$product.img" alt="$product.productName">
-</div>
-
-
-<div class="d-flex justify-content-end">
-
-    <div class="col-md-20">
-        <form action="/products/$product.getId()" method="post">
-            <button type="submit"  class="btn btn-outline-primary">Add to cart</button>
-        </form>
-
-
+    <div class="product">
+        <img src="/$product.img" alt="$product.productName">
     </div>
-</div>
+    <form action="/products/$product.getId()" method="post">
+        <div class="d-flex justify-content-end">
+            <div class="container">
+                <div class="row">
+                    <div class="col"><label class="input-group-text"
+                                            for="inputGroupSelect01"><b>Price: $product.numberFormat() RON</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Quantity</label>
+            </div>
+            #if($product.stock==0)
+                <button type="submit" class="btn btn-warning" disabled>Out of stock</button>
+            #else
+                <select name="noOfItems" class="custom-select" id="inputGroupSelect011" required>
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <button type="submit" class="btn btn-outline-primary">Add to cart</button>
+            #end
+        </div>
+    </form>
 #end
 

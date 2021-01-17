@@ -1,5 +1,7 @@
 package wantsome.project.Model;
 
+import java.util.Objects;
+
 public class Cart {
     private final PaymentType paymentType;
 
@@ -19,6 +21,17 @@ public class Cart {
         return totalprice;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cart)) return false;
+        Cart cart = (Cart) o;
+        return getPaymentType() == cart.getPaymentType() && Objects.equals(getTotalprice(), cart.getTotalprice());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPaymentType(), getTotalprice());
+    }
 }
 

@@ -1,0 +1,26 @@
+#parse("layout.vm")
+#@mainLayout()
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Product Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+        #foreach($o in $orders.entrySet())
+        <tr>
+            <td>$o.getKey().getProductName()</td>
+            <td>$o.getKey().getDescription()</td>
+            <td>$o.getKey().getPrice()</td>
+            <td>$o.getValue()</td>
+        </tr>
+        #end
+    </tbody>
+</table>
+<div class="d-flex flex-column bd-highlight mb-3 justify-content-end">
+    <div class="p-2 bd-highlight"><b><u>Total price for your order is: $totalPrice</u></b></div>
+</div>
+#end

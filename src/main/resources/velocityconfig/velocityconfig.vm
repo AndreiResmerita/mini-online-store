@@ -14,6 +14,10 @@
 #* @vtlvariable name="added" type="java.lang.String" *#
 #* @vtlvariable name="succes" type="java.lang.String" *#
 #* @vtlvariable name="quantity" type="java.util.Map" *#
+#* @vtlvariable name="carts" type="java.util.List" *#
+#* @vtlvariable name="orders" type="java.util.Map" *#
+#* @vtlvariable name="numberOfOrders" type="java.util.Map" *#
+
 
 
 
