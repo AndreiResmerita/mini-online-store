@@ -113,7 +113,7 @@ public interface ProductDAO {
     static ProductDTO getMostBoughtProduct() throws SQLException {
         ProductDTO productDTO = null;
         String query = "SELECT p2.id,p2.img ,p2.product_type ,p2.product_name,p2.description ,p2.price ,p2.stock \n" +
-                "FROM cart s\n" +
+                "FROM carts s\n" +
                 " JOIN  users u2  ON s.user_id = u2.id \n" +
                 " JOIN products p2,order_item oi ON p2.id = oi.product_id\n" +
                 " GROUP BY oi.product_id \n" +

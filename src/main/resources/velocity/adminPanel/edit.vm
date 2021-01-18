@@ -49,12 +49,12 @@ Admin Panel
         <td>$product.productType</td>
         <form action="/adminpanel/$product.id/$product.id" method="post">
             <td><input class="form-control form-control-sm" type="text" name="product_name"
-                       placeholder="Change product name" required></td>
+                       placeholder="$product.productName" required></td>
             <td><input class="form-control form-control-sm" type="text" name="description"
-                       placeholder="Change description" required></td>
-            <td><input class="form-control form-control-sm" type="number" name="price" placeholder="Change price"
+                       placeholder="$product.description" required></td>
+            <td><input class="form-control form-control-sm" type="number" name="price" placeholder="$product.price"
                        required></td>
-            <td><input class="form-control form-control-sm" type="number" name="stock" placeholder="Change stock"
+            <td><input class="form-control form-control-sm" type="number" name="stock" placeholder="$product.stock"
                        required></td>
             <td>
                 <button value="/adminpanel/$product.id/$product.id" type="submit" class="btn btn-success" required>

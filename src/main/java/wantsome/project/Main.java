@@ -6,6 +6,11 @@ import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 import wantsome.project.web.Paths;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
 import static wantsome.project.Controller.AboutController.getAboutPage;
@@ -29,9 +34,12 @@ public class Main {
     }
 
     public static void setup() {
-       // UserDTO userAdmin = new UserDTO(1,"admin@gmail.com","password", UserType.ADMIN,"Andrei","My address","0722443322");
-       // UserDTO userCustomer = new UserDTO(1,"example@gmail.com","password", UserType.CUSTOMER,"Andrei","My address","0722443322");
+    createTableIfNotExistUsers();
+    createTableIfNotExistProducts();
+    createTableIfNotExistCarts();
+    createTableIfNotExistOrderItem();
     }
+
 
     private static void configureRoutesAndStart() {
 
@@ -72,5 +80,82 @@ public class Main {
 
     }
 
+    public static void createTableIfNotExistUsers() {
+        String url = " ? "; // Put the url of new database
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n" +
+                " id integer primary key autoincrement, \n" +
+                " email varchar(50) NOT NULL UNIQUE,\n" +
+                " password VARCHAR(20) NOT NULL,\n" +
+                " user_type varchar(20),\n" +
+                " name varchar(50),\n" +
+                " address varchar(100),\n" +
+                " phone_number varchar(20));";
 
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void createTableIfNotExistProducts() {
+        String url = " ? "; // Put the url of new database
+        String sql = "CREATE TABLE IF NOT EXISTS products (\n" +
+                " id integer primary key autoincrement, \n" +
+                " email varchar(50) NOT NULL UNIQUE,\n" +
+                " password VARCHAR(20) NOT NULL,\n" +
+                " user_type varchar(20),\n" +
+                " name varchar(50),\n" +
+                " address varchar(100),\n" +
+                " phone_number varchar(20));";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void createTableIfNotExistCarts() {
+        String url = " ? "; // Put the url of new database
+        String sql = "CREATE TABLE IF NOT EXISTS carts (\n" +
+                " id integer primary key autoincrement, \n" +
+                " email varchar(50) NOT NULL UNIQUE,\n" +
+                " password VARCHAR(20) NOT NULL,\n" +
+                " user_type varchar(20),\n" +
+                " name varchar(50),\n" +
+                " address varchar(100),\n" +
+                " phone_number varchar(20));";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void createTableIfNotExistOrderItem() {
+        String url = " ? "; // Put the url of new database
+        String sql = "CREATE TABLE IF NOT EXISTS order_item (\n" +
+                " id integer primary key autoincrement, \n" +
+                " email varchar(50) NOT NULL UNIQUE,\n" +
+                " password VARCHAR(20) NOT NULL,\n" +
+                " user_type varchar(20),\n" +
+                " name varchar(50),\n" +
+                " address varchar(100),\n" +
+                " phone_number varchar(20));";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

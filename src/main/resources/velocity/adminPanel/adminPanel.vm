@@ -49,7 +49,7 @@
         <td>$product.productType</td>
         <td>$product.productName</td>
         <td>$product.description</td>
-        <td>$product.numberFormat()</td>
+        <td>$product.numberFormat() RON</td>
         <td>$product.stock</td>
         <td>
             <button onclick="location.href='/adminpanel/$product.id/$product.id'" class="btn btn-success">Edit</button>

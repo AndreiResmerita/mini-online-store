@@ -50,7 +50,7 @@ public interface CartDAO {
     }
 
     static void sendOrder(UserDTO userDTO, CartDTO cartDTO) throws SQLException {
-        String query = "insert into cart (user_id, type_of_payment,total_price) values (?,?,?)";
+        String query = "insert into carts (user_id, type_of_payment,total_price) values (?,?,?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(query,
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -73,7 +73,7 @@ public interface CartDAO {
 
     static CartDTO getById(Integer id) throws SQLException {
         CartDTO cartDTO = null;
-        String query = "select * from cart where id = ?";
+        String query = "select * from carts where id = ?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
@@ -90,7 +90,7 @@ public interface CartDAO {
         CartDTO cartDTO;
         String sql = "SELECT DISTINCT c.id \n" +
                 "FROM order_item oi\n" +
-                " JOIN  cart c  ON c.id = oi.cart_id \n" +
+                " JOIN  carts c  ON c.id = oi.cart_id \n" +
                 " join users u on u.id = c.user_id \n" +
                 " join products p on p.id = oi.product_id \n" +
                 "  WHERE u.id = ?;";
@@ -110,7 +110,7 @@ public interface CartDAO {
         Map<ProductDTO, Integer> productQuantity = new HashMap<>();
         String sql = "SELECT  p.id ,oi.quantity \n" +
                 "FROM order_item oi\n" +
-                " JOIN  cart c  ON c.id = oi.cart_id \n" +
+                " JOIN  carts c  ON c.id = oi.cart_id \n" +
                 " join users u on u.id = c.user_id \n" +
                 " join products p on p.id = oi.product_id \n" +
                 "  WHERE c.id = ?;";
@@ -127,7 +127,7 @@ public interface CartDAO {
     }
 
     static Integer getTotalPriceForCart(Integer id) throws SQLException {
-        String sql = "Select c.total_price from cart c where id = ? ";
+        String sql = "Select c.total_price from carts c where id = ? ";
         Integer result = null;
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
