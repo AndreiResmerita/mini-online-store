@@ -1,5 +1,4 @@
 #macro(mainLayout)
-
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -9,7 +8,6 @@
     <!-- For cart section -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <!-- FontAwesome -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -22,7 +20,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -50,13 +47,11 @@
                     </li>
                     #if($currentUser)
                         #if($cs>0)
-
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false"><span id="#csSize">My account
                                     <span>$cs</span></span>
                                 </a>
-
                                 <ul class="dropdown-menu" id="drowpUser">
                                     <li class="nav-item px-3  mb-0 position-relative d-none d-lg-flex" id="cartId">
                                         <div id="cart" class="d-none">
@@ -69,7 +64,6 @@
                                             </span>
                                         </a>
                                     </li>
-
                                     <a class="dropdown-item" href="/accset">Account settings</a>
                                     <a class="dropdown-item" href="/orders">My orders</a>
                                     <div class="dropdown-divider"></div>
@@ -78,8 +72,6 @@
                                             <button type="submit" id="logout" class="btn btn-link">Log out</button>
                                         </a>
                                     </form>
-
-
                                 </ul>
                             </li>
                         #else
@@ -125,7 +117,6 @@
                                         <button type="submit" id="logout" class="btn btn-link">Log out</button>
                                     </a>
                                 </form>
-
                             </ul>
                         </li>
                     #else
@@ -146,13 +137,11 @@
         </div>
     </nav>
 </header>
-
 <main>
     <div id="content">
         $!bodyContent
     </div>
 </main>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
@@ -164,4 +153,3 @@
 </body>
 </html>
 #end
-

@@ -25,6 +25,7 @@ public class AdminController {
         model.put("products", ProductDAO.getAllProducts());
         model.put("quantity", frequency(productDTOList));
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
+        model.put("mostBought",ProductDAO.getMostBoughtProduct());
         return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
     };
 
@@ -41,6 +42,7 @@ public class AdminController {
         Map<String, Object> model = new HashMap<>();
         model.put("products", ProductDAO.getAllProducts());
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
+        model.put("mostBought",ProductDAO.getMostBoughtProduct());
         return SparkUtil.render(request, model, Paths.Template.EDITADMNPNL);
     };
 

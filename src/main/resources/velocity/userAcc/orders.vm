@@ -14,13 +14,13 @@
         <tr>
             <td>$o.getKey().getProductName()</td>
             <td>$o.getKey().getDescription()</td>
-            <td>$o.getKey().getPrice()</td>
+            <td>$o.getKey().numberFormat() RON</td>
             <td>$o.getValue()</td>
         </tr>
         #end
     </tbody>
 </table>
 <div class="d-flex flex-column bd-highlight mb-3 justify-content-end">
-    <div class="p-2 bd-highlight"><b><u>Total price for your order is: $totalPrice</u></b></div>
+    <div class="p-2 bd-highlight"><b><u>Total price for your order is: $totalPrice RON</u></b></div>
 </div>
 #end

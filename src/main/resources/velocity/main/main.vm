@@ -10,7 +10,6 @@
 <div class="d-flex justify-content-center"><h2>Welcome!</h2></div>
 <div class="containerMain">
     #if($product)
-
         <div class="col">
             <a class="productMain" href="/products/$product.getId()">
                 <h4>Product of the day</h4>

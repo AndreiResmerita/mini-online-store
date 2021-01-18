@@ -21,8 +21,8 @@
                 <tr>
                     <td>$key.getKey().getProductName()</td>
                     <td>$key.getKey().getDescription()</td>
-                    <td>$key.getKey().numberFormat()</td>
-                    <td><select name="noOfItems" class="custom-select" id="inputGroupSelect011">
+                    <td>$key.getKey().numberFormat() RON</td>
+               <td><select name="noOfItems" class="custom-select" id="inputGroupSelect011">
                         <option selected>$key.getValue()</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -34,14 +34,14 @@
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
-                    </select></td>
+                </select></td>
                     <td><a href="/cart/$key.getKey().getId()" class="badge badge-danger">Remove item</a></td>
                 #end
             </tr>
             </tbody>
         </table>
         <div class="d-flex flex-column bd-highlight mb-3 justify-content-end">
-            <div class="p-2 bd-highlight"><b><u>Total price for your order is: $price</u></b></div>
+            <div class="p-2 bd-highlight"><b><u>Total price for your order is: $price RON</u></b></div>
             <div class="p-2 bd-highlight"><input type="radio" name="type_of_payment" value="CASHONDELIVERY">
                 <label for="CASHONDELIVERY">Cash on delivery</label><br>
                 <input type="radio" name="type_of_payment" value="CARD">

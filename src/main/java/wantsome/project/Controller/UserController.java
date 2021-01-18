@@ -12,7 +12,11 @@ import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
 import wantsome.project.web.SparkUtil;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static wantsome.project.DAO.CartDAO.*;
@@ -49,9 +53,13 @@ public class UserController {
     public static Route getOrderList = (Request request, Response response) -> {
         LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
+        DecimalFormat df = new DecimalFormat(
+                "###,###.##",
+                new DecimalFormatSymbols(new Locale("de", "DE")));
+        BigDecimal value = new BigDecimal(getTotalPriceForCart(Integer.parseInt(request.params("id"))));
         CartDAO.getListOrder(CartDAO.getById(Integer.parseInt(request.params("id"))).getId());
         model.put("orders", CartDAO.getListOrder(CartDAO.getById(Integer.parseInt(request.params("id"))).getId()));
-        model.put("totalPrice", getTotalPriceForCart(Integer.parseInt(request.params("id"))));
+        model.put("totalPrice", df.format(value.floatValue()));
         return SparkUtil.render(request, model, Paths.Template.ORDERS);
     };
 }

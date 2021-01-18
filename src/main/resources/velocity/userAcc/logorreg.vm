@@ -1,6 +1,6 @@
 #parse("layout.vm")
 #@mainLayout()
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" id="logorreglink">
     <b>You are not logged in, please <a class="hvr-buzz" href="/register">Register</a> or <a class="hvr-buzz"
                                                                                              href="/login">Login</a></b>
 </div>

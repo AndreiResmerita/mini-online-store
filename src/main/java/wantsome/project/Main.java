@@ -29,8 +29,8 @@ public class Main {
     }
 
     public static void setup() {
-        UserDTO userAdmin = new UserDTO(1,"admin@gmail.com","password", UserType.ADMIN,"Andrei","My address","0722443322");
-        UserDTO userCustomer = new UserDTO(1,"example@gmail.com","password", UserType.CUSTOMER,"Andrei","My address","0722443322");
+       // UserDTO userAdmin = new UserDTO(1,"admin@gmail.com","password", UserType.ADMIN,"Andrei","My address","0722443322");
+       // UserDTO userCustomer = new UserDTO(1,"example@gmail.com","password", UserType.CUSTOMER,"Andrei","My address","0722443322");
     }
 
     private static void configureRoutesAndStart() {

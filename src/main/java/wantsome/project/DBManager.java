@@ -12,7 +12,7 @@ public class DBManager {
         SQLiteConfig config = new SQLiteConfig();
         config.enforceForeignKeys(true);
         Properties properties = new Properties();
-        properties.put("url","jdbc:sqlite:D:\\gut\\teme_andrei_resmerita\\src\\main\\java\\teme\\w11_sql\\Aici");
+        properties.put("url","jdbc:sqlite:D:\\SQLite Project\\Aici.db");
         return DriverManager.getConnection(properties.getProperty("url"));
     }
 }

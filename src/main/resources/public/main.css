@@ -12,8 +12,8 @@ main {
     stop-opacity: 0 !important;
 }
 
-a {
-    color: #212529 !important;
+ a {
+    color: #212529!important;
     text-decoration: none !important;
 }
 
@@ -237,6 +237,10 @@ input::-webkit-inner-spin-button {
 
 }
 
+#logorreglink a{
+    color: #4b6cb7!important;
+}
+
 .hvr-buzz:hover, .hvr-buzz:focus, .hvr-buzz:active {
     -webkit-animation-name: hvr-buzz;
     animation-name: hvr-buzz;
@@ -250,7 +254,7 @@ input::-webkit-inner-spin-button {
 }
 
 #inputGroupSelect011 {
-    width: 70%;
+    width: 85%;
 }
 
 .productMain img {

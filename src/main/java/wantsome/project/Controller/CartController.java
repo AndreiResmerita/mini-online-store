@@ -48,7 +48,7 @@ public class CartController {
         LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
         DecimalFormat df = new DecimalFormat(
-                "#,##0.00",
+                "###,###.##",
                 new DecimalFormatSymbols(new Locale("de", "DE")));
         BigDecimal value = new BigDecimal(getTotalPrice());
         model.put("price", df.format(value.floatValue()));
