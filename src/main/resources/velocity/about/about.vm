@@ -2,8 +2,7 @@
 #@mainLayout()
 <div class="d-flex justify-content-center">
     <h4><b>Project made in Java with:</b></h4>
-    <b>
-        <ul>
+    <b><ul>
             <li>SQLITE</li>
             <li>Apache Velocity</li>
             <li>Bootstrap 5</li>
