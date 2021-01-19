@@ -10,10 +10,16 @@ main {
 
 #content {
     stop-opacity: 0 !important;
+    position: relative;
 }
 
- a {
-    color: #212529!important;
+#content b {
+    stop-opacity: 0 !important;
+    vertical-align: center;
+}
+
+a {
+    color: #212529 !important;
     text-decoration: none !important;
 }
 
@@ -237,8 +243,8 @@ input::-webkit-inner-spin-button {
 
 }
 
-#logorreglink a{
-    color: #4b6cb7!important;
+#logorreglink a {
+    color: #4b6cb7 !important;
 }
 
 .hvr-buzz:hover, .hvr-buzz:focus, .hvr-buzz:active {

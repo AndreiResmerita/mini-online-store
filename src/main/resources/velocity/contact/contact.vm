@@ -1,0 +1,12 @@
+#parse("layout.vm")
+#@mainLayout()
+<div class="d-flex justify-content-center">
+    <b>
+        <ul>
+            <li>Name: Andrei Resmerita</li>
+            <li>Phone: 0751760911</li>
+            <li> Email: andreires99@gmail.com</li>
+        </ul>
+    </b>
+</div>
+#end

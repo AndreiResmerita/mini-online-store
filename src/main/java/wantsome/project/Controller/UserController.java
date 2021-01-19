@@ -50,7 +50,7 @@ public class UserController {
         return SparkUtil.render(request, model, Paths.Template.USERORDERS);
     };
 
-    public static Route getOrderList = (Request request, Response response) -> {
+    public static Route getOrderProductsList = (Request request, Response response) -> {
         LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
         DecimalFormat df = new DecimalFormat(

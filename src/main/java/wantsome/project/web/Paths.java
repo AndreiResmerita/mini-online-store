@@ -15,10 +15,11 @@ public class Paths {
         public static final String ABOUTPAGE = "/about";
         public static final String CARTPAGE = "/cart";
         public static final String ACCSETTINGS = "/accset";
-        public static final String CARTPAGED = "/cart/:id";
+        public static final String CARTPAGEREMOVEITEM = "/cart/:id";
         public static final String LOGORREG = "/";
         public static final String USERORDERS = "/orders";
         public static final String ORDERS = "/orders/:id";
+        public static final String CONTACT = "/contact";
 
 
     }
@@ -37,5 +38,6 @@ public class Paths {
         public static final String LOGORREG = "/velocity/userAcc/logorreg.vm";
         public static final String USERORDERS = "/velocity/userAcc/userorders.vm";
         public static final String ORDERS = "/velocity/userAcc/orders.vm";
+        public static final String CONTACT = "/velocity/contact/contact.vm";
     }
 }

@@ -7,8 +7,32 @@
     #elseif($registrationSucceeded)
     <p><b>Congrats you just made an account with $currentUser</b></p>
     #end
-<div class="d-flex justify-content-center"><h2>Welcome!</h2></div>
 <div class="containerMain">
+    <div class="container">
+        <div class="d-flex justify-content-center"><h2>Welcome!</h2></div>
+        <div class="row">
+            <div class="col order-last">
+                <b>User type Admin details:
+                    <ul>Username:
+                        <li>admin@gmail.com</li>
+                        Password:
+                        <li>parola</li>
+                    </ul>
+                </b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col order-first">
+                <b>User type Customer details:
+                    <ul>Username:
+                        <li>andrei@gmail.com</li>
+                        Password:
+                        <li>parola</li>
+                    </ul>
+                </b>
+            </div>
+        </div>
+    </div>
     #if($product)
         <div class="col">
             <a class="productMain" href="/products/$product.getId()">

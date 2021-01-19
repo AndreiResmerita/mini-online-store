@@ -14,5 +14,5 @@
     - User is saved on session
     - On the main page is shown bestseller product based on the product bought by most of users,and a random one.
 
-**Please run it to see all his features.**
+**User details for loggin as admin or customer are shown in the main page. Please run it to see all his features.**
   

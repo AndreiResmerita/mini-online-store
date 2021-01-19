@@ -9,7 +9,8 @@ import wantsome.project.web.Paths;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
-import static wantsome.project.Controller.AboutController.getAboutPage;
+import static wantsome.project.Controller.AboutContactController.getAboutPage;
+import static wantsome.project.Controller.AboutContactController.getContatctPage;
 import static wantsome.project.Controller.AdminController.*;
 import static wantsome.project.Controller.CartController.*;
 import static wantsome.project.Controller.LoginController.*;
@@ -72,10 +73,11 @@ public class Main {
         get(Paths.Web.ABOUTPAGE, getAboutPage);
         get(Paths.Web.CARTPAGE, getCartPage);
         get(Paths.Web.ACCSETTINGS, getAccSet);
-        get(Paths.Web.CARTPAGED, removeItem);
+        get(Paths.Web.CARTPAGEREMOVEITEM, removeItem);
         get(Paths.Web.LOGORREG, LogOrReg);
         get(Paths.Web.USERORDERS, getOrdersPage);
-        get(Paths.Web.ORDERS, getOrderList);
+        get(Paths.Web.ORDERS, getOrderProductsList);
+        get(Paths.Web.CONTACT,getContatctPage);
 
         post(Paths.Web.CARTPAGE, finishOrder);
         post(Paths.Web.REGISTER, handleRegisterPost);
