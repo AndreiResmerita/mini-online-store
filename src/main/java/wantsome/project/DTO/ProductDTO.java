@@ -21,7 +21,6 @@ public class ProductDTO {
     private Integer price;
     private Integer stock;
 
-
     public ProductDTO(Product product) {
         this.img = product.getImg();
         this.productType = product.getProductType();
@@ -70,7 +69,7 @@ public class ProductDTO {
         DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
         symbols.setGroupingSeparator(' ');
         formatter.setDecimalFormatSymbols(symbols);
-       return price;
+        return price;
     }
 
     public Integer getStock() {
@@ -100,7 +99,7 @@ public class ProductDTO {
         return Objects.hash(getProductType(), getProductName(), getDescription(), getPrice(), getStock());
     }
 
-    public String numberFormat(){
+    public String numberFormat() {
         Integer num = price;
         DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();

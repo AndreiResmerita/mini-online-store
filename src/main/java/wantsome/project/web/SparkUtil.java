@@ -1,9 +1,8 @@
 package wantsome.project.web;
 
-import org.apache.velocity.app.VelocityEngine;
 import spark.ModelAndView;
+import spark.template.velocity.VelocityTemplateEngine;
 import spark.Request;
-import spark.template.velocity.*;
 import wantsome.project.DAO.CartDAO;
 
 import java.util.Map;
@@ -20,20 +19,8 @@ public class SparkUtil {
 
     public static String render(Request request, Map<String, Object> model, String templatePath) {
         model.put("cs", CartDAO.productDTOList.size());
-        model.put("admin",getSessionAdmin(request));
+        model.put("admin", getSessionAdmin(request));
         model.put("currentUser", getSessionCurrentUser(request));
-        model.put("WebPath", Paths.Web.class);
-        return strictVelocityEngine().render(new ModelAndView(model, templatePath));
+        return new VelocityTemplateEngine().render(new ModelAndView(model, templatePath));
     }
-
-    private static VelocityTemplateEngine strictVelocityEngine() {
-        VelocityEngine configuredEngine = new VelocityEngine();
-        configuredEngine.setProperty("runtime.references.strict", true);
-        configuredEngine.setProperty("resource.loaders", "class");
-        configuredEngine.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        return new VelocityTemplateEngine(configuredEngine);
-    }
-
-
-
 }

@@ -10,7 +10,7 @@ public class Paths {
         public static final String PRODUCTS = "/products";
         public static final String ADMINPANEL = "/adminpanel";
         public static final String DLTPRODADMIN = "/adminpanel/:id";
-        public static final String EDTPRODADMIN2 = "/adminpanel/:id/:id";
+        public static final String EDTPRODADMIN = "/adminpanel/:id/:id";
         public static final String PRODUCTPAGE = "/products/:id";
         public static final String ABOUTPAGE = "/about";
         public static final String CARTPAGE = "/cart";

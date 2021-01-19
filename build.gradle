@@ -24,16 +24,18 @@ dependencies {
     //Spark Debug
     compile group: 'com.sparkjava', name: 'spark-debug-tools', version: '0.5'
 
+    //sqlite
     compile 'org.xerial:sqlite-jdbc:3.32.3'
 
     //spark web framework
     compile 'com.sparkjava:spark-core:2.9.2'
     compile 'com.sparkjava:spark-template-velocity:2.7.1'
+    compile 'org.apache.velocity:velocity-engine-core:2.2'
 
 
     //javalin web framework (alternative to spark)
     compile 'io.javalin:javalin:3.9.1'
-    compile 'org.apache.velocity:velocity-engine-core:2.2'
+
 
     compile 'com.google.code.gson:gson:2.8.6' //for json support, preferable instead of jackson
     //compile 'org.slf4j:slf4j-simple:1.7.30' //basic logging

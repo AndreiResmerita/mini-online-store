@@ -1,15 +1,11 @@
 package wantsome.project;
 
 import spark.Spark;
-import wantsome.project.DTO.UserDTO;
-import wantsome.project.Model.User;
-import wantsome.project.Model.UserType;
+import wantsome.project.DAO.CartDAO;
+import wantsome.project.DAO.OrderItemDAO;
+import wantsome.project.DAO.ProductDAO;
+import wantsome.project.DAO.UserDAO;
 import wantsome.project.web.Paths;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.*;
@@ -23,6 +19,7 @@ import static wantsome.project.Controller.ProductsController.*;
 import static wantsome.project.Controller.RegisterController.getRegisterPage;
 import static wantsome.project.Controller.RegisterController.handleRegisterPost;
 import static wantsome.project.Controller.UserController.*;
+import static wantsome.project.DBManager.*;
 
 public class Main {
 
@@ -34,10 +31,25 @@ public class Main {
     }
 
     public static void setup() {
-    createTableIfNotExistUsers();
-    createTableIfNotExistProducts();
-    createTableIfNotExistCarts();
-    createTableIfNotExistOrderItem();
+        //methods for creating/populating tables on the first start of application
+        createTableIfNotExistUsers();
+        createTableIfNotExistProducts();
+        createTableIfNotExistCarts();
+        createTableIfNotExistOrderItem();
+        UserDAO.insertIfNotExistsAdmin();
+        UserDAO.insertIfNotExistsCustomer();
+        ProductDAO.insertIfNotExistsProduct1();
+        ProductDAO.insertIfNotExistsProduct2();
+        ProductDAO.insertIfNotExistsProduct3();
+        ProductDAO.insertIfNotExistsProduct4();
+        ProductDAO.insertIfNotExistsProduct5();
+        CartDAO.insertIfNotExistsCart1();
+        CartDAO.insertIfNotExistsCart2();
+        CartDAO.insertIfNotExistsCart3();
+        OrderItemDAO.insertIfNotExistsOrderItem1();
+        OrderItemDAO.insertIfNotExistsOrderItem2();
+        OrderItemDAO.insertIfNotExistsOrderItem3();
+        OrderItemDAO.insertIfNotExistsOrderItem4();
     }
 
 
@@ -55,7 +67,7 @@ public class Main {
         get(Paths.Web.PRODUCTS, getProductsPage);
         get(Paths.Web.ADMINPANEL, getLoginPageAdmin);
         get(Paths.Web.DLTPRODADMIN, delete);
-        get(Paths.Web.EDTPRODADMIN2, getEditProductAdmin);
+        get(Paths.Web.EDTPRODADMIN, getEditProductAdmin);
         get(Paths.Web.PRODUCTPAGE, getEachProductsPage);
         get(Paths.Web.ABOUTPAGE, getAboutPage);
         get(Paths.Web.CARTPAGE, getCartPage);
@@ -70,7 +82,7 @@ public class Main {
         post(Paths.Web.LOGIN, handleLoginPost);
         post(Paths.Web.LOGOUT, handleLogoutPost);
         post(Paths.Web.ADMINPANEL, handleProductPost);
-        post(Paths.Web.EDTPRODADMIN2, getEditProductAdminPost);
+        post(Paths.Web.EDTPRODADMIN, getEditProductAdminPost);
         post(Paths.Web.PRODUCTPAGE, addToCart);
         post(Paths.Web.ACCSETTINGS, changeAccSet);
 
@@ -80,82 +92,5 @@ public class Main {
 
     }
 
-    public static void createTableIfNotExistUsers() {
-        String url = " ? "; // Put the url of new database
-        String sql = "CREATE TABLE IF NOT EXISTS users (\n" +
-                " id integer primary key autoincrement, \n" +
-                " email varchar(50) NOT NULL UNIQUE,\n" +
-                " password VARCHAR(20) NOT NULL,\n" +
-                " user_type varchar(20),\n" +
-                " name varchar(50),\n" +
-                " address varchar(100),\n" +
-                " phone_number varchar(20));";
 
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void createTableIfNotExistProducts() {
-        String url = " ? "; // Put the url of new database
-        String sql = "CREATE TABLE IF NOT EXISTS products (\n" +
-                " id integer primary key autoincrement, \n" +
-                " email varchar(50) NOT NULL UNIQUE,\n" +
-                " password VARCHAR(20) NOT NULL,\n" +
-                " user_type varchar(20),\n" +
-                " name varchar(50),\n" +
-                " address varchar(100),\n" +
-                " phone_number varchar(20));";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void createTableIfNotExistCarts() {
-        String url = " ? "; // Put the url of new database
-        String sql = "CREATE TABLE IF NOT EXISTS carts (\n" +
-                " id integer primary key autoincrement, \n" +
-                " email varchar(50) NOT NULL UNIQUE,\n" +
-                " password VARCHAR(20) NOT NULL,\n" +
-                " user_type varchar(20),\n" +
-                " name varchar(50),\n" +
-                " address varchar(100),\n" +
-                " phone_number varchar(20));";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public static void createTableIfNotExistOrderItem() {
-        String url = " ? "; // Put the url of new database
-        String sql = "CREATE TABLE IF NOT EXISTS order_item (\n" +
-                " id integer primary key autoincrement, \n" +
-                " email varchar(50) NOT NULL UNIQUE,\n" +
-                " password VARCHAR(20) NOT NULL,\n" +
-                " user_type varchar(20),\n" +
-                " name varchar(50),\n" +
-                " address varchar(100),\n" +
-                " phone_number varchar(20));";
-
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 }

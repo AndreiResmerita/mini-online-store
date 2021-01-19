@@ -1,16 +1,18 @@
-## Wantsome - Project X
+## Mini online store application
 
- - This is a __template__ for the final project at the end of Java course.
-   It's just a basic working gradle project, with common libraries included.
+- __IMPORTANT__: **This application runs only with a database file.**
+- Please make a db file and put the url into the method located in DBManager class.
+- SQL tables are created automatically with some data for test when the application runs.
+- This project is an example of a basic online store application working with SQL Database with 2 types of users (admin
+  and customer) all the accounts having hashed passwords for security. Customer can buy products (add/remove from cart),
+  send orders, see orders history and update his details. It has validation methods for login as user and as admin. Admin
+  can add products, edit, delete. Another things to tell:
+    - Customer cannot buy products out of stock (also message on product appears that is out of stock)
+    - Customer cannot select a quantity that is bigger than the actual quantity
+    - Admin can insert photos
+    - Cart is saved in DB only after the order in sent
+    - User is saved on session
+    - On the main page is shown bestseller product based on the product bought by most of users,and a random one.
 
- - __IMPORTANT__: after you finish your project, you should replace this
-   content with something more relevant for your specific project. 
-   
-   It should contain: 
-   - short description, the __purpose and scope__ of your project
-   - __initial setup instructions__ (init db, others?)
-   - __usage instructions__
-   - interesting __technical details__ about how you built it (libs used, db, etc)
-   
-   For nicer formatting you may using __MarkDown syntax__, see guide: 
-   <https://guides.github.com/features/mastering-markdown>
+**Please run it to see all his features.**
+  
