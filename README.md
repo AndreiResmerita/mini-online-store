@@ -1,6 +1,6 @@
 ## Mini online store application
 
-- __IMPORTANT__: **This application runs only with a database file.**
+- __IMPORTANT__: **This application runs only with a SQLite database file.**
 - Please make a db file and put the url into the method located in DBManager class.
 - SQL tables are created automatically with some data for test when the application runs.
 - This project is an example of a basic online store application working with SQL Database with 2 types of users (admin
