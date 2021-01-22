@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 
 import java.sql.SQLException;
 
-public class ProductsToJson {
+public class ToJson {
 
-    public static String toJsonProductList(Object o) throws SQLException {
+    public static String toJson(Object o) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(o);
     }
