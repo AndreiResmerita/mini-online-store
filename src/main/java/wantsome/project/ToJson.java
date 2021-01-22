@@ -3,8 +3,6 @@ package wantsome.project;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.sql.SQLException;
-
 public class ToJson {
 
     public static String toJson(Object o) {
