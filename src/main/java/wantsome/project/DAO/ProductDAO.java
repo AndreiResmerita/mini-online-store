@@ -110,6 +110,29 @@ public interface ProductDAO {
         }
     }
 
+    static List<ProductDTO> getAllProductsJson() throws SQLException {
+        ArrayList<ProductDTO> productDTOArrayList = new ArrayList<>();
+        String query = "SELECT p.id,p.product_type ,p.product_name ,p.description ,p.price ,p.stock ,SUM(oi.quantity) \n" +
+                "from products p\n" +
+                "left join order_item oi on p.id = oi.product_id \n" +
+                "GROUP BY p.id ;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                ProductDTO productDTO = new ProductDTO(rs.getInt(1),
+                        ProductType.valueOf(rs.getString(2)),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getInt(7));
+                productDTOArrayList.add(productDTO);
+            }
+            return productDTOArrayList;
+        }
+    }
+
     static ProductDTO getMostBoughtProduct() throws SQLException {
         ProductDTO productDTO = null;
         String query = "SELECT p2.id,p2.img ,p2.product_type ,p2.product_name,p2.description ,p2.price ,p2.stock \n" +

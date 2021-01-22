@@ -17,14 +17,6 @@ public class Product {
     private Integer price;
     private Integer stock;
 
-    public Product(ProductType productType, String productName, String description, Integer price, Integer stock) {
-        this.productType = productType;
-        this.productName = productName;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
-    }
-
     public Product(Path img, ProductType productType, String productName, String description, Integer price, Integer stock) {
         this.img = img.getFileName();
         this.productType = productType;

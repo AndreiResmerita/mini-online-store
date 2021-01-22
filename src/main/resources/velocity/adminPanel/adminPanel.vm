@@ -59,5 +59,43 @@
     </tbody>
     #end
 </table>
+<table id="table" data-sort-name="name"
+       data-sort-order="desc">
+    <thead>
+    <tr>
+        <th data-field="id" data-sortable="true">ID</th>
+        <th data-field="productType" data-sortable="true">Item Type</th>
+        <th data-field="productName" data-sortable="true">Item Name</th>
+        <th data-field="description" data-sortable="true">Description</th>
+        <th data-field="price" data-sortable="true">Item Price</th>
+        <th data-field="stock" data-sortable="true">Item Stock</th>
+        <th data-field="noOfSales" data-sortable="true">Number of sales</th>
+    </tr>
+    </thead>
+</table>
+<script>
+    var data = $data;
+    $(function () {
+        $('#table').bootstrapTable({
+            data: data
+        });
+    });
+</script>
+<script>
+    function customSort(sortName, sortOrder, data) {
+        var order = sortOrder === 'desc' ? -1 : 1
+        data.sort(function (a, b) {
+            var aa = +((a[sortName] + '').replace(/[^\d]/g, ''))
+            var bb = +((b[sortName] + '').replace(/[^\d]/g, ''))
+            if (aa < bb) {
+                return order * -1
+            }
+            if (aa > bb) {
+                return order
+            }
+            return 0
+        })
+    }
+</script>
 #end
 

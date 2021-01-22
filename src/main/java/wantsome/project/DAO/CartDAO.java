@@ -41,9 +41,9 @@ public interface CartDAO {
         }
     }
 
-    static Map<String,Object> errorForCartQuanity(){
-        Map<String,Object> model = new HashMap<>();
-        model.put("errorCart",true);
+    static Map<String, Object> errorForCartQuanity() {
+        Map<String, Object> model = new HashMap<>();
+        model.put("errorCart", true);
         return model;
     }
 

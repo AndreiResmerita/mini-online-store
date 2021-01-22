@@ -5,6 +5,7 @@ import spark.Response;
 import spark.Route;
 import wantsome.project.DAO.ProductDAO;
 import wantsome.project.DTO.ProductDTO;
+import wantsome.project.ProductsToJson;
 import wantsome.project.web.Paths;
 import wantsome.project.web.SparkUtil;
 
@@ -25,7 +26,8 @@ public class AdminController {
         model.put("products", ProductDAO.getAllProducts());
         model.put("quantity", frequency(productDTOList));
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
-        model.put("mostBought",ProductDAO.getMostBoughtProduct());
+        model.put("mostBought", ProductDAO.getMostBoughtProduct());
+        model.put("data", ProductsToJson.toJsonProductList(ProductDAO.getAllProductsJson()));
         return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
     };
 
@@ -42,7 +44,7 @@ public class AdminController {
         Map<String, Object> model = new HashMap<>();
         model.put("products", ProductDAO.getAllProducts());
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
-        model.put("mostBought",ProductDAO.getMostBoughtProduct());
+        model.put("mostBought", ProductDAO.getMostBoughtProduct());
         return SparkUtil.render(request, model, Paths.Template.EDITADMNPNL);
     };
 

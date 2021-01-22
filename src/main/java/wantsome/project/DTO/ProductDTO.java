@@ -1,10 +1,14 @@
 package wantsome.project.DTO;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import wantsome.project.DAO.ProductDAO;
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
 
 
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -13,22 +17,15 @@ import java.util.Objects;
 
 
 public class ProductDTO {
-    private final Path img;
+    private Path img;
     private Integer id;
     private final ProductType productType;
     private String productName;
     private String description;
     private Integer price;
     private Integer stock;
+    private Integer noOfSales;
 
-    public ProductDTO(Product product) {
-        this.img = product.getImg();
-        this.productType = product.getProductType();
-        this.productName = product.getProductName();
-        this.description = product.getDescription();
-        this.price = product.getPrice();
-        this.stock = product.getStock();
-    }
 
     public ProductDTO(Integer id, Path img, ProductType productType, String productName, String description, Integer price, Integer stock) {
         this.id = id;
@@ -38,6 +35,25 @@ public class ProductDTO {
         this.description = description;
         this.price = price;
         this.stock = stock;
+    }
+
+    public ProductDTO(Integer id, ProductType productType, String productName, String description, Integer price, Integer stock, Integer noOfSales) throws SQLException {
+        this.id = id;
+        this.productType = productType;
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.noOfSales = noOfSales;
+    }
+
+    public ProductDTO(Product product) {
+        this.img = product.getImg();
+        this.productType = product.getProductType();
+        this.productName = product.getProductName();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.stock = product.getStock();
     }
 
     public Path getImg() {
