@@ -41,12 +41,6 @@ public interface CartDAO {
         }
     }
 
-    static Map<String, Object> errorForCartQuanity() {
-        Map<String, Object> model = new HashMap<>();
-        model.put("errorCart", true);
-        return model;
-    }
-
     static Integer getTotalPrice() {
         Integer sum = 0;
         for (ProductDTO p : productDTOList) {
