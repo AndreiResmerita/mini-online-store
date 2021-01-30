@@ -1,6 +1,7 @@
 package wantsome.project.Model;
 
 public class OrderItem {
+
     private Integer quantity;
 
     public OrderItem() {

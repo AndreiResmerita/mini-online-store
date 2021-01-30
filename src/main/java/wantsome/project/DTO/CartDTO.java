@@ -2,6 +2,7 @@ package wantsome.project.DTO;
 
 import wantsome.project.Model.Cart;
 import wantsome.project.Model.PaymentType;
+import wantsome.project.Model.Product;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -85,6 +86,13 @@ public class CartDTO {
                 ", paymentType=" + paymentType +
                 ", totalprice=" + totalprice +
                 '}';
+    }
+
+    public Cart toCart(){
+        Cart cart = new Cart();
+        cart.setPaymentType(this.paymentType);
+        cart.setTotalprice(this.totalprice);
+        return cart;
     }
 
     @Override

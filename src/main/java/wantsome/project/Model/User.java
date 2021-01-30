@@ -22,7 +22,6 @@ public class User {
 
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -43,10 +42,6 @@ public class User {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
     public String getName() {
         return name;
     }
@@ -59,12 +54,16 @@ public class User {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setPhoneNumber(String phoneNumber) {

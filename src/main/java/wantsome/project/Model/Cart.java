@@ -3,14 +3,18 @@ package wantsome.project.Model;
 import java.util.Objects;
 
 public class Cart {
-    private final PaymentType paymentType;
 
-    private final Integer totalprice;
+    private  PaymentType paymentType;
+    private  Integer totalprice;
 
 
     public Cart(PaymentType paymentType, Integer totalprice) {
         this.paymentType = paymentType;
         this.totalprice = totalprice;
+    }
+
+    public Cart() {
+
     }
 
     public PaymentType getPaymentType() {
@@ -19,6 +23,14 @@ public class Cart {
 
     public Integer getTotalprice() {
         return totalprice;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public void setTotalprice(Integer totalprice) {
+        this.totalprice = totalprice;
     }
 
     @Override

@@ -21,15 +21,6 @@ public class UserDTO {
         this.address = user.getAddress();
         this.phoneNumber = user.getPhoneNumber();
     }
-    public UserDTO(User user,Integer id) {
-        this.id = id;
-        this.email = user.getEmail();
-        this.password = hashPassword(user.getPassword());
-        this.userType = user.getUserType();
-        this.name = user.getName();
-        this.address = user.getAddress();
-        this.phoneNumber = user.getPhoneNumber();
-    }
 
     public UserDTO(Integer id, String email, String password, UserType userType, String name, String address, String phoneNumber) {
         this.id = id;
@@ -84,5 +75,15 @@ public class UserDTO {
         return phoneNumber;
     }
 
+    public User toUser(){
+        User user = new User();
+        user.setEmail(this.email);
+        user.setPassword(this.password);
+        user.setUserType(this.userType);
+        user.setName(this.name);
+        user.setAddress(this.address);
+        user.setPhoneNumber(this.phoneNumber);
+        return user;
+    }
 
 }
