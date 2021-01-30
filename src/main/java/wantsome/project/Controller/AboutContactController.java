@@ -5,8 +5,10 @@ import spark.Response;
 import spark.Route;
 import wantsome.project.web.Paths;
 import wantsome.project.web.SparkUtil;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import static wantsome.project.web.RequestUtil.RequestUtil.removeSessionAttrLoggedOut;
 
 public class AboutContactController {

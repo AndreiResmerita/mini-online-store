@@ -28,18 +28,24 @@ import static wantsome.project.web.RequestUtil.RequestUtil.getQueryRedirectBack;
 
 public class CartController {
 
+    private static UserDAO userDAO = new UserDAOImpl();
+    private static ProductDAO productDAO = new ProductDAOImpl();
+    private static CartDAO cartDAO = new CartDAOImpl();
+    private static OrderItemDAO orderItemDAO = new OrderItemDAOImpl() {
+    };
+
     public static Route addToCart = (Request request, Response response) -> {
         LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
         if (getQueryRedirectBack(request) != null) {
             model.put("added", true);
-            addInCart(ProductDAO.getById(Integer.parseInt(getParamsProdId(request))), Integer.parseInt(request.queryParams("noOfItems")));
-            ProductDTO productDTO = ProductDAO.getById(Integer.parseInt(getParamsProdId(request)));
+            cartDAO.addInCart(productDAO.get(Integer.parseInt(getParamsProdId(request))), Integer.parseInt(request.queryParams("noOfItems")));
+            ProductDTO productDTO = productDAO.get(Integer.parseInt(getParamsProdId(request)));
             model.put("product", productDTO);
             return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
         }
-        addInCart(ProductDAO.getById(Integer.parseInt(getParamsProdId(request))), Integer.parseInt(request.queryParams("noOfItems")));
-        ProductDTO productDTO = ProductDAO.getById(Integer.parseInt(getParamsProdId(request)));
+        cartDAO.addInCart(productDAO.get(Integer.parseInt(getParamsProdId(request))), Integer.parseInt(request.queryParams("noOfItems")));
+        ProductDTO productDTO = productDAO.get(Integer.parseInt(getParamsProdId(request)));
         model.put("product", productDTO);
         return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
     };
@@ -50,11 +56,11 @@ public class CartController {
         DecimalFormat df = new DecimalFormat(
                 "###,###.##",
                 new DecimalFormatSymbols(new Locale("de", "DE")));
-        BigDecimal value = new BigDecimal(getTotalPrice());
+        BigDecimal value = new BigDecimal(cartDAO.getTotalPrice());
         model.put("price", df.format(value.floatValue()));
         model.put("cs", productDTOList.size());
         model.put("allProducts", productDTOList.stream().distinct().collect(Collectors.toList()));
-        model.put("quantity", frequency(productDTOList));
+        model.put("quantity", cartDAO.frequency(productDTOList));
         model.put("listP", productDTOList.size());
         return SparkUtil.render(request, model, Paths.Template.CARTPAGE);
     };
@@ -62,19 +68,19 @@ public class CartController {
     public static Route finishOrder = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         OrderItemDTO orderItemDTO = new OrderItemDTO();
-        model.put("quantity", frequency(productDTOList));
+        model.put("quantity", cartDAO.frequency(productDTOList));
         model.put("listP", products);
         model.put("allProducts", productDTOList);
-        model.put("price", getTotalPrice());
+        model.put("price", cartDAO.getTotalPrice());
         model.put("cs", productDTOList.size());
         model.put("orderFinish", true);
-        UserDTO userDTO = UserDAO.getUser(RequestUtil.getSessionCurrentUser(request));
-        Cart cart = new Cart(PaymentType.valueOf(request.queryParams("type_of_payment")), getTotalPrice());
+        UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
+        Cart cart = new Cart(PaymentType.valueOf(request.queryParams("type_of_payment")), cartDAO.getTotalPrice());
         CartDTO cartDTO = new CartDTO(cart);
-        CartDAO.sendOrder(userDTO, cartDTO);
-        for (Map.Entry<ProductDTO, Long> p : frequency(productDTOList).entrySet()) {
-            ProductDAO.updateStock(p.getKey().getStock() - p.getValue(), p.getKey().getId());
-            OrderItemDAO.insert(cartDTO, p.getKey(), p.getValue(), orderItemDTO);
+        cartDAO.createOrder(userDTO, cartDTO);
+        for (Map.Entry<ProductDTO, Long> p : cartDAO.frequency(productDTOList).entrySet()) {
+            productDAO.updateStockOnly(p.getKey().getStock() - p.getValue(), p.getKey().getId());
+            orderItemDAO.insert(cartDTO, p.getKey(), p.getValue(), orderItemDTO);
         }
         productDTOList.clear();
         products.clear();
@@ -83,8 +89,8 @@ public class CartController {
 
     public static Route removeItem = (Request request, Response response) -> {
         LoginController.ensureUserIsLoggedIn(request, response);
-        ProductDTO productDTO = ProductDAO.getById(Integer.valueOf(request.params("id")));
-        remove(productDTO, productDTOList);
+        ProductDTO productDTO = productDAO.get(Integer.valueOf(request.params("id")));
+        cartDAO.remove(productDTO, productDTOList);
         response.redirect(Paths.Web.CARTPAGE);
         return null;
     };

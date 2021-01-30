@@ -39,7 +39,7 @@
             #end
         </div>
     </form>
-    <script>var selectAge = document.getElementById("inputGroupSelect011");
+    <script>var selectMenu = document.getElementById("inputGroupSelect011");
     var contents;
     if ($product.stock>10){
         for (let i = 1; i <= 10; i++) {
@@ -51,7 +51,7 @@
         contents += "<option>" + i + "</option>";
     }
 
-    selectAge.innerHTML = contents;</script>
+    selectMenu.innerHTML = contents;</script>
 #end
 
 

@@ -10,27 +10,7 @@ import static wantsome.project.DBManager.getConnection;
 
 public interface OrderItemDAO {
 
-    static void insert(CartDTO cartDTO, ProductDTO productDTO, Long quantity, OrderItemDTO itemDTO) throws SQLException {
-        String query = "insert into order_item (cart_id, product_id,quantity) values (?,?,?)";
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query,
-                     Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, cartDTO.getId());
-            statement.setInt(2, productDTO.getId());
-            statement.setInt(3, quantity.intValue());
-            int affectedRows = statement.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating cart failed, no rows affected.");
-            }
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    itemDTO.setId(generatedKeys.getInt(1));
-                } else {
-                    throw new SQLException("Creating cart failed, no ID obtained.");
-                }
-            }
-        }
-    }
+    void insert(CartDTO cartDTO, ProductDTO productDTO, Long quantity, OrderItemDTO itemDTO);
 
     //methods for populating when application starts for first time
     static void insertIfNotExistsOrderItem1() {

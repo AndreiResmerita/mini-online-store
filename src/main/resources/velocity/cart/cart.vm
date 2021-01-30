@@ -22,7 +22,8 @@
                     <td>$key.getKey().getProductName()</td>
                     <td>$key.getKey().getDescription()</td>
                     <td>$key.getKey().numberFormat() RON</td>
-               <td><select name="noOfItems" class="custom-select" id="inputGroupSelect011">
+                    <td><select onclick="#set($s=$key.getKey().getStock())" name="noOfItems" class="custom-select"
+                                id="inputGroupSelect011">
                         <option selected>$key.getValue()</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -34,7 +35,7 @@
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>
-                </select></td>
+                    </select></td>
                     <td><a href="/cart/$key.getKey().getId()" class="badge badge-danger">Remove item</a></td>
                 #end
             </tr>
@@ -42,14 +43,27 @@
         </table>
         <div class="d-flex flex-column bd-highlight mb-3 justify-content-end">
             <div class="p-2 bd-highlight"><b><u>Total price for your order is: $price RON</u></b></div>
-            <div class="p-2 bd-highlight"><input type="radio" name="type_of_payment" value="CASHONDELIVERY">
+            <div class="p-2 bd-highlight"><input type="radio" name="type_of_payment" value="CASHONDELIVERY" required>
                 <label for="CASHONDELIVERY">Cash on delivery</label><br>
-                <input type="radio" name="type_of_payment" value="CARD">
+                <input type="radio" name="type_of_payment" value="CARD" required>
                 <label for="CARD">Card</label><br></div>
             <div class="p-2 bd-highlight">
                 <button class="btn btn-outline-success" type="submit">Finish order</button>
             </div>
         </div>
     </form>
+
+    <script>var selectMenu = document.getElementById("inputGroupSelect011");
+    var contents;
+    if ($s> 10) {
+        for (let i = 1; i <= 10; i++) {
+            contents += "<option>" + i + "</option>";
+        }
+    } else
+        for (let i = 1; i <= $s; i++) {
+            contents += "<option>" + i + "</option>";
+        }
+
+    selectMenu.innerHTML = contents;</script>
     #end
 #end

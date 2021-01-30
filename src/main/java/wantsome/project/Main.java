@@ -1,10 +1,7 @@
 package wantsome.project;
 
 import spark.Spark;
-import wantsome.project.DAO.CartDAO;
-import wantsome.project.DAO.OrderItemDAO;
-import wantsome.project.DAO.ProductDAO;
-import wantsome.project.DAO.UserDAO;
+import wantsome.project.DAO.*;
 import wantsome.project.web.Paths;
 
 import static spark.Spark.*;
@@ -28,7 +25,6 @@ public class Main {
         enableDebugScreen();
         setup();
         configureRoutesAndStart();
-
     }
 
     public static void setup() {

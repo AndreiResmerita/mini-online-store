@@ -1,8 +1,5 @@
 package wantsome.project.DTO;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import wantsome.project.DAO.ProductDAO;
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
 

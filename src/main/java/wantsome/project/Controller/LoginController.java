@@ -6,6 +6,7 @@ import spark.Response;
 import spark.Route;
 
 import wantsome.project.DAO.UserDAO;
+import wantsome.project.DAO.UserDAOImpl;
 import wantsome.project.DTO.UserDTO;
 import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
@@ -21,6 +22,8 @@ import static wantsome.project.web.RequestUtil.RequestUtil.*;
 
 public class LoginController {
 
+    private static UserDAO userDAO = new UserDAOImpl();
+
     public static Route LogOrReg = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         return SparkUtil.render(request, model, Paths.Template.LOGORREG);
@@ -28,7 +31,7 @@ public class LoginController {
 
     public static Route getLoginPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
-        UserDTO userDTO = UserDAO.getUser(RequestUtil.getSessionCurrentUser(request));
+        UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
         if (userDTO != null) {
             model.put("alreadylogged", true);
             model.put("cs", products.size());
@@ -80,7 +83,7 @@ public class LoginController {
         if (email.isEmpty() || password.isEmpty()) {
             return false;
         }
-        UserDTO user = UserDAO.getUser(email);
+        UserDTO user = userDAO.getUser(email);
         if (user == null) {
             return false;
         }
@@ -91,7 +94,7 @@ public class LoginController {
         if (email.isEmpty() || password.isEmpty()) {
             return false;
         }
-        UserDTO user = UserDAO.getUser(email);
+        UserDTO user = userDAO.getUser(email);
         if (user == null) {
             return false;
         }

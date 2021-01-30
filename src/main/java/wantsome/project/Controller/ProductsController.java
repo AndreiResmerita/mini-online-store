@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import wantsome.project.DAO.ProductDAO;
+import wantsome.project.DAO.ProductDAOImpl;
 import wantsome.project.DTO.ProductDTO;
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
@@ -25,10 +26,12 @@ import java.util.Map;
 
 public class ProductsController {
 
+    private static ProductDAO productDAO = new ProductDAOImpl();
+
     public static Route getProductsPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         model.put("cs", productDTOList.size());
-        model.put("products", ProductDAO.getAllProducts());
+        model.put("products", productDAO.getAll());
         return SparkUtil.render(request, model, Paths.Template.PRODUCTS);
     };
 
@@ -42,7 +45,7 @@ public class ProductsController {
                 Integer.parseInt(request.queryParams("stock")));
         Files.copy(request.raw().getPart("img").getInputStream(), tempFile, StandardCopyOption.REPLACE_EXISTING);
         ProductDTO productDTO = new ProductDTO(product);
-        ProductDAO.addProduct(productDTO);
+        productDAO.create(productDTO);
         response.redirect(Paths.Web.PRODUCTS);
         return null;
     };
@@ -50,7 +53,7 @@ public class ProductsController {
     public static Route getEachProductsPage = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
         model.put("cs", productDTOList.size());
-        ProductDTO productDTO = ProductDAO.getById(Integer.parseInt(getParamsProdId(request)));
+        ProductDTO productDTO = productDAO.get(Integer.parseInt(getParamsProdId(request)));
         model.put("product", productDTO);
         return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
     };
