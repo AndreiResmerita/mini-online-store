@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static wantsome.project.web.RequestUtil.RequestUtil.*;
 
-public class SparkUtil {
+public class ViewUtil {
 
     /**
      * Utility method, 'combines' a model with a Velocity template file,
