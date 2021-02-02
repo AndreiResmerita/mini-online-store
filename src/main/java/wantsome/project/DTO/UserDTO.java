@@ -1,6 +1,5 @@
 package wantsome.project.DTO;
 
-import org.mindrot.jbcrypt.BCrypt;
 import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 
