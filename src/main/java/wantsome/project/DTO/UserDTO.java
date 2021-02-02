@@ -4,6 +4,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 
+import static wantsome.project.Model.User.hashPassword;
+
 public class UserDTO {
     private Integer id;
     private String email;
@@ -30,12 +32,6 @@ public class UserDTO {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-    }
-
-    public static String hashPassword(String plainTextPassword) {
-        String salt = BCrypt.gensalt(12);
-        return (BCrypt.hashpw(plainTextPassword, salt));
-
     }
 
     public Integer getId() {

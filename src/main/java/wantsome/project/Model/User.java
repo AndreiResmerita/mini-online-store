@@ -1,5 +1,7 @@
 package wantsome.project.Model;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class User {
 
     private String email;
@@ -81,5 +83,12 @@ public class User {
                 ", phoneNumber=" + phoneNumber +
                 '}';
     }
+
+    public static String hashPassword(String plainTextPassword) {
+        String salt = BCrypt.gensalt(12);
+        return (BCrypt.hashpw(plainTextPassword, salt));
+
+    }
+
 }
 
