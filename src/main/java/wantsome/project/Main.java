@@ -56,7 +56,6 @@ public class Main {
         staticFileLocation("/public");
         Spark.externalStaticFileLocation("upload");
 
-
         //configure all routes
         get(Paths.Web.MAIN, getMainPage);
         get(Paths.Web.REGISTER, getRegisterPage);
@@ -86,9 +85,5 @@ public class Main {
 
         awaitInitialization();
         System.out.println("\nServer started: http://localhost:4567/main");
-
-
     }
-
-
 }
