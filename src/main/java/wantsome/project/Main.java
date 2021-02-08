@@ -49,7 +49,6 @@ public class Main {
         OrderItemDAO.insertIfNotExistsOrderItem4();
     }
 
-
     private static void configureRoutesAndStart() {
 
         Spark.staticFileLocation("/public");
