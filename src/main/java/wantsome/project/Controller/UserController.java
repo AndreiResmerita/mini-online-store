@@ -12,7 +12,7 @@ import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
-import wantsome.project.web.SparkUtil;
+import wantsome.project.web.ViewUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -33,7 +33,7 @@ public class UserController {
         LoginController.ensureUserIsLoggedIn(request, response);
         Map<String, Object> model = new HashMap<>();
         model.put("cs", productDTOList.size());
-        return SparkUtil.render(request, model, Paths.Template.ACCSETTINGS);
+        return ViewUtil.render(request, model, Paths.Template.ACCSETTINGS);
     };
     public static Route changeAccSet = (Request request, Response response) -> {
         Map<String, Object> model = new HashMap<>();
@@ -44,7 +44,7 @@ public class UserController {
                 request.queryParams("phone_number"));
         UserDTO userDTO = new UserDTO(user);
         userDAO.update(userDTO, userDTOOLD.getId());
-        return SparkUtil.render(request, model, Paths.Template.ACCSETTINGS);
+        return ViewUtil.render(request, model, Paths.Template.ACCSETTINGS);
     };
 
     public static Route getOrdersPage = (Request request, Response response) -> {
@@ -52,7 +52,7 @@ public class UserController {
         Map<String, Object> model = new HashMap<>();
         UserDTO userDTO = userDAO.getUser(RequestUtil.getSessionCurrentUser(request));
         model.put("carts", cartDAO.getAllOrders(userDTO.getId()));
-        return SparkUtil.render(request, model, Paths.Template.USERORDERS);
+        return ViewUtil.render(request, model, Paths.Template.USERORDERS);
     };
 
     public static Route getOrderProductsList = (Request request, Response response) -> {
@@ -65,6 +65,6 @@ public class UserController {
         cartDAO.getListOrder(cartDAO.getById(Integer.parseInt(request.params("id"))).getId());
         model.put("orders", cartDAO.getListOrder(cartDAO.getById(Integer.parseInt(request.params("id"))).getId()));
         model.put("totalPrice", df.format(value.floatValue()));
-        return SparkUtil.render(request, model, Paths.Template.ORDERS);
+        return ViewUtil.render(request, model, Paths.Template.ORDERS);
     };
 }

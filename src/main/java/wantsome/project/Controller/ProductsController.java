@@ -15,7 +15,7 @@ import wantsome.project.DTO.ProductDTO;
 import wantsome.project.Model.Product;
 import wantsome.project.Model.ProductType;
 import wantsome.project.web.Paths;
-import wantsome.project.web.SparkUtil;
+import wantsome.project.web.ViewUtil;
 
 import javax.servlet.MultipartConfigElement;
 import java.nio.file.Files;
@@ -32,7 +32,7 @@ public class ProductsController {
         Map<String, Object> model = new HashMap<>();
         model.put("cs", productDTOList.size());
         model.put("products", productDAO.getAll());
-        return SparkUtil.render(request, model, Paths.Template.PRODUCTS);
+        return ViewUtil.render(request, model, Paths.Template.PRODUCTS);
     };
 
     public static Route handleProductPost = (Request request, Response response) -> {
@@ -55,7 +55,7 @@ public class ProductsController {
         model.put("cs", productDTOList.size());
         ProductDTO productDTO = productDAO.get(Integer.parseInt(getParamsProdId(request)));
         model.put("product", productDTO);
-        return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
+        return ViewUtil.render(request, model, Paths.Template.ONEPRODUCT);
     };
 
 }

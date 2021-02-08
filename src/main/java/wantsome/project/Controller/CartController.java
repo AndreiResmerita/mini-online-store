@@ -13,7 +13,7 @@ import wantsome.project.Model.PaymentType;
 
 import wantsome.project.web.Paths;
 import wantsome.project.web.RequestUtil.RequestUtil;
-import wantsome.project.web.SparkUtil;
+import wantsome.project.web.ViewUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -42,12 +42,12 @@ public class CartController {
             cartDAO.addInCart(productDAO.get(Integer.parseInt(getParamsProdId(request))), Integer.parseInt(request.queryParams("noOfItems")));
             ProductDTO productDTO = productDAO.get(Integer.parseInt(getParamsProdId(request)));
             model.put("product", productDTO);
-            return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
+            return ViewUtil.render(request, model, Paths.Template.ONEPRODUCT);
         }
         cartDAO.addInCart(productDAO.get(Integer.parseInt(getParamsProdId(request))), Integer.parseInt(request.queryParams("noOfItems")));
         ProductDTO productDTO = productDAO.get(Integer.parseInt(getParamsProdId(request)));
         model.put("product", productDTO);
-        return SparkUtil.render(request, model, Paths.Template.ONEPRODUCT);
+        return ViewUtil.render(request, model, Paths.Template.ONEPRODUCT);
     };
 
     public static Route getCartPage = (Request request, Response response) -> {
@@ -62,7 +62,7 @@ public class CartController {
         model.put("allProducts", productDTOList.stream().distinct().collect(Collectors.toList()));
         model.put("quantity", cartDAO.frequency(productDTOList));
         model.put("listP", productDTOList.size());
-        return SparkUtil.render(request, model, Paths.Template.CARTPAGE);
+        return ViewUtil.render(request, model, Paths.Template.CARTPAGE);
     };
 
     public static Route finishOrder = (Request request, Response response) -> {
@@ -84,7 +84,7 @@ public class CartController {
         }
         productDTOList.clear();
         products.clear();
-        return SparkUtil.render(request, model, Paths.Template.CARTPAGE);
+        return ViewUtil.render(request, model, Paths.Template.CARTPAGE);
     };
 
     public static Route removeItem = (Request request, Response response) -> {

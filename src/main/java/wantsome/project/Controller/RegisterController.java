@@ -9,7 +9,7 @@ import wantsome.project.DTO.UserDTO;
 import wantsome.project.Model.User;
 import wantsome.project.Model.UserType;
 import wantsome.project.web.Paths;
-import wantsome.project.web.SparkUtil;
+import wantsome.project.web.ViewUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +27,9 @@ public class RegisterController {
         if (getSessionCurrentUser(request) != null) {
             model.put("alreadylogged", true);
             model.put("cs", products.size());
-            return SparkUtil.render(request, model, Paths.Template.MAIN);
+            return ViewUtil.render(request, model, Paths.Template.MAIN);
         }
-        return SparkUtil.render(request, model, Paths.Template.REGISTER);
+        return ViewUtil.render(request, model, Paths.Template.REGISTER);
     };
 
     public static Route handleRegisterPost = (Request request, Response response) -> {
@@ -41,7 +41,7 @@ public class RegisterController {
         userDAO.create(userDTO);
         model.put("registrationSucceeded", true);
         request.session().attribute("currentUser", getQueryEmail(request));
-        return SparkUtil.render(request, model, Paths.Template.MAIN);
+        return ViewUtil.render(request, model, Paths.Template.MAIN);
     };
 
 }

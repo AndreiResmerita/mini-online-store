@@ -10,7 +10,7 @@ import wantsome.project.DAO.ProductDAOImpl;
 import wantsome.project.DTO.ProductDTO;
 import wantsome.project.ToJson;
 import wantsome.project.web.Paths;
-import wantsome.project.web.SparkUtil;
+import wantsome.project.web.ViewUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class AdminController {
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         model.put("mostBought", productDAO.getMostBought());
         model.put("data", ToJson.toJson(productDAO.getAllForJSON()));
-        return SparkUtil.render(request, model, Paths.Template.ADMINPANEL);
+        return ViewUtil.render(request, model, Paths.Template.ADMINPANEL);
     };
 
     public static Route delete = (Request request, Response response) -> {
@@ -50,7 +50,7 @@ public class AdminController {
         model.put("products", productDAO.getAll());
         model.put("loggedOut", removeSessionAttrLoggedOut(request));
         model.put("mostBought", productDAO.getMostBought());
-        return SparkUtil.render(request, model, Paths.Template.EDITADMNPNL);
+        return ViewUtil.render(request, model, Paths.Template.EDITADMNPNL);
     };
 
     public static Route getEditProductAdminPost = (Request request, Response response) -> {
